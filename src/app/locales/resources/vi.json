@@ -1,0 +1,17 @@
+{
+  "common": {
+    "button": {
+      "save": "Save",
+      "backToHomepage": "Quay lại trang chủ"
+    },
+    "errors": {
+      "404": "Chúng tôi không thể tìm thấy bất kỳ trang hay dữ liệu mà bạn cần!",
+      "500": "Oops! Đã có lỗi xảy ra, vui lòng thử lại sau."
+    },
+    "title": {
+      "login": "Đăng nhập",
+      "homepage": "Trang chủ",
+      "dashboard": "Bảng thống kê"
+    }
+  }
+}

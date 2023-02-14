@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider as ReduxProvider } from "react-redux";
+import { I18nextProvider } from "react-i18next";
+import i18n from "app/locales";
 import store from "app/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -12,7 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ReduxProvider store={store}>
-      <App />
+      <I18nextProvider i18n={i18n}>
+        <App />
+      </I18nextProvider>
     </ReduxProvider>
   </React.StrictMode>
 );

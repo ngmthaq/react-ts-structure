@@ -1,0 +1,17 @@
+{
+  "common": {
+    "button": {
+      "save": "Save",
+      "backToHomepage": "Back to Homepage"
+    },
+    "errors": {
+      "404": "We can't seem to find the page or data you're looking for!",
+      "500": "Oops! Something went wrong, please try again later."
+    },
+    "title": {
+      "login": "Login",
+      "homepage": "Homepage",
+      "dashboard": "Dashboard"
+    }
+  }
+}
