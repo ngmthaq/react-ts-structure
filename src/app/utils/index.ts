@@ -1,7 +1,6 @@
 export const randomStr = (length: number = 10) => {
   var result = "";
-  var characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   var charactersLength = characters.length;
   for (var i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -50,4 +49,11 @@ export const removeSessionStorage = (key: string): void => {
 
 export const clearSessionStorage = (): void => {
   window.sessionStorage.clear();
+};
+
+export const getParams = (key?: string): any => {
+  const queryString = window.location.search;
+  const params = new URLSearchParams(queryString);
+
+  return key ? params.get(key) : Object.fromEntries(params.entries());
 };
