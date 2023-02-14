@@ -22,7 +22,7 @@ abstract class GenericApi {
     this.api = axios.create();
 
     // Config axios default headers
-    this.api.defaults.baseURL = process.env.VUE_APP_API_URL;
+    this.api.defaults.baseURL = process.env.REACT_APP_API_URL;
     this.api.defaults.headers.common["Timezone"] = this.tz;
     this.api.defaults.headers.common["Cache-Control"] = "no-cache";
     this.api.defaults.headers.common["Cache-control"] = "no-store";
