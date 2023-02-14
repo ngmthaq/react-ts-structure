@@ -1,5 +1,7 @@
 import React from "react";
+import { RouterProvider } from "react-router-dom";
 import { CssBaseline, StyledEngineProvider, ThemeProvider } from "@mui/material";
+import router from "app/router";
 import useThemeMode from "app/hooks/useThemeMode";
 
 const App: React.FC<AppProps> = () => {
@@ -9,7 +11,7 @@ const App: React.FC<AppProps> = () => {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <p>App</p>
+        <RouterProvider router={router} />
       </ThemeProvider>
     </StyledEngineProvider>
   );
