@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Notification, CommonState } from "spec/common.reducer";
+import { Notification, CommonState } from "spec/reducer";
 import { ThemeMode } from "spec/theme";
 
 export const name: string = "common";
