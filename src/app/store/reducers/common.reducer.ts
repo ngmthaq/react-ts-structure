@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { Notification, CommonState } from "spec/common.reducer";
-// import { ThemeMode } from "theme/mui";
+import { ThemeMode } from "spec/theme";
 
 export const name: string = "common";
 
 export const initialState: CommonState = {
   isLoading: false,
   notification: null,
-  //   mode: "light",
+  mode: "light",
 };
 
 export const commonSlice = createSlice({
@@ -18,21 +18,21 @@ export const commonSlice = createSlice({
     setter: (state, action: PayloadAction<object>) => {
       state = Object.assign(state, action.payload);
     },
-    openLoading: (state) => {
+    openLoading: state => {
       state.isLoading = true;
     },
-    closeLoading: (state) => {
+    closeLoading: state => {
       state.isLoading = false;
     },
     addNotification: (state, action: PayloadAction<Notification>) => {
       state.notification = action.payload;
     },
-    removeNotification: (state) => {
+    removeNotification: state => {
       state.notification = null;
     },
-    // changeThemeMode: (state, action: PayloadAction<ThemeMode>) => {
-    //   state.mode = action.payload;
-    // },
+    changeThemeMode: (state, action: PayloadAction<ThemeMode>) => {
+      state.mode = action.payload;
+    },
   },
 });
 

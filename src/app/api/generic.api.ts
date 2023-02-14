@@ -33,13 +33,13 @@ abstract class GenericApi {
     // Config axios request interceptor
     this.api.interceptors.request.use(
       this.onRequestSuccess, // Do something before request sent
-      this.onRequestError // Do something with request error
+      this.onRequestError, // Do something with request error
     );
 
     // Config axios response interceptor
     this.api.interceptors.response.use(
       this.onResponseSuccess, // Do something when response in 2xx status
-      this.onResponseError // Do something when response got error
+      this.onResponseError, // Do something when response got error
     );
   }
 
@@ -70,7 +70,7 @@ abstract class GenericApi {
     params: any,
     data: any,
     headers: AxiosHeaders | RawAxiosRequestHeaders = {},
-    config: AxiosRequestConfig | any = {}
+    config: AxiosRequestConfig | any = {},
   ) {
     return await this.api.request({
       ...config,
@@ -87,7 +87,7 @@ abstract class GenericApi {
     url: string,
     params: any = {},
     headers: AxiosHeaders | RawAxiosRequestHeaders = {},
-    config: AxiosRequestConfig | any = {}
+    config: AxiosRequestConfig | any = {},
   ) {
     return await this._request("get", url, params, {}, headers, config);
   }
@@ -97,7 +97,7 @@ abstract class GenericApi {
     url: string,
     data: any = {},
     headers: AxiosHeaders | RawAxiosRequestHeaders = {},
-    config: AxiosRequestConfig | any = {}
+    config: AxiosRequestConfig | any = {},
   ) {
     return await this._request("post", url, {}, data, headers, config);
   }
@@ -107,7 +107,7 @@ abstract class GenericApi {
     url: string,
     data: any,
     headers: AxiosHeaders | RawAxiosRequestHeaders = {},
-    config: AxiosRequestConfig | any = {}
+    config: AxiosRequestConfig | any = {},
   ) {
     return await this._request("put", url, {}, data, headers, config);
   }
@@ -117,7 +117,7 @@ abstract class GenericApi {
     url: string,
     data: any = {},
     headers: AxiosHeaders | RawAxiosRequestHeaders = {},
-    config: AxiosRequestConfig | any = {}
+    config: AxiosRequestConfig | any = {},
   ) {
     return await this._request("delete", url, {}, data, headers, config);
   }
@@ -126,7 +126,7 @@ abstract class GenericApi {
     url: string,
     params: any = {},
     headers: AxiosHeaders | RawAxiosRequestHeaders = {},
-    config: AxiosRequestConfig | any = {}
+    config: AxiosRequestConfig | any = {},
   ) {
     try {
       let result = await this._get(url, params, headers, config);
@@ -141,7 +141,7 @@ abstract class GenericApi {
     url: string,
     data: any = {},
     headers: AxiosHeaders | RawAxiosRequestHeaders = {},
-    config: AxiosRequestConfig | any = {}
+    config: AxiosRequestConfig | any = {},
   ) {
     try {
       let result = await this._post(url, data, headers, config);
@@ -156,7 +156,7 @@ abstract class GenericApi {
     url: string,
     data: any = {},
     headers: AxiosHeaders | RawAxiosRequestHeaders = {},
-    config: AxiosRequestConfig | any = {}
+    config: AxiosRequestConfig | any = {},
   ) {
     try {
       let result = await this._put(url, data, headers, config);
@@ -171,7 +171,7 @@ abstract class GenericApi {
     url: string,
     data: any = {},
     headers: AxiosHeaders | RawAxiosRequestHeaders = {},
-    config: AxiosRequestConfig | any = {}
+    config: AxiosRequestConfig | any = {},
   ) {
     try {
       let result = await this._delete(url, data, headers, config);

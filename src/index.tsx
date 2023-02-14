@@ -6,10 +6,9 @@ import i18n from "app/locales";
 import store from "app/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import "./app/theme/scss/style.scss";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
   <React.StrictMode>
@@ -18,7 +17,7 @@ root.render(
         <App />
       </I18nextProvider>
     </ReduxProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

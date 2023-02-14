@@ -8,5 +8,5 @@ export interface Notification {
 export interface CommonState {
   isLoading: boolean;
   notification: Notification | null;
-  //   mode: ThemeMode;
+  mode: ThemeMode;
 }
