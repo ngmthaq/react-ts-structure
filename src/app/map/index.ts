@@ -6,11 +6,25 @@ class Leaflet {
   private groups: FeatureGroup[];
   private markers: Marker[];
   private clusteredMarkers: Marker[];
+  private clusteredNumber: number;
+  private clusteredDisableAtZoom: number;
 
-  constructor({ id, center, zoom = 6, minZoom = 3, maxZoom = 12, worldCopyJump = true, options = {} }: MapConfigs) {
+  constructor({
+    id,
+    center,
+    zoom = 6,
+    minZoom = 3,
+    maxZoom = 12,
+    clusteredNumber = 10,
+    clusteredDisableAtZoom = 12,
+    worldCopyJump = true,
+    options = {},
+  }: MapConfigs) {
     this.groups = [];
     this.markers = [];
     this.clusteredMarkers = [];
+    this.clusteredNumber = clusteredNumber;
+    this.clusteredDisableAtZoom = clusteredDisableAtZoom;
     this.map = L.map(id, {
       center,
       zoom,

@@ -7,6 +7,8 @@ interface MapConfigs {
   worldCopyJump: boolean;
   minZoom: number;
   maxZoom: number;
+  clusteredNumber: number,
+  clusteredDisableAtZoom: number,
   options?: L.MapOptions;
 }
 
