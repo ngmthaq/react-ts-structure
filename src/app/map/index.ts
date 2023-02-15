@@ -207,6 +207,27 @@ class Leaflet {
   public removeAllMarkers() {
     this.markers = [];
   }
+
+  /**
+   * Create custom div icon
+   */
+  public createIcon(options: L.DivIconOptions): L.DivIcon {
+    return L.divIcon(options);
+  }
+
+  /**
+   * Create popup
+   */
+  public createPopup(options: L.PopupOptions): L.Popup {
+    return L.popup(options);
+  }
+
+  /**
+   * Create tooltip
+   */
+  public createTooltip(options: L.TooltipOptions): L.Tooltip {
+    return L.tooltip(options);
+  }
 }
 
 export default Leaflet;
