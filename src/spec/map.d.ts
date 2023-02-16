@@ -1,14 +1,15 @@
 import L from "leaflet";
 
 interface MapConfigs {
-  id: string;
+  id: string | HTMLElement;
+  className?: string;
   center: L.LatLngExpression;
-  zoom: number;
-  worldCopyJump: boolean;
-  minZoom: number;
-  maxZoom: number;
-  clusteredNumber: number;
-  clusteredDisableAtZoom: number;
+  zoom?: number;
+  worldCopyJump?: boolean;
+  minZoom?: number;
+  maxZoom?: number;
+  clusteredNumber?: number;
+  clusteredDisableAtZoom?: number;
   options?: L.MapOptions;
 }
 
@@ -27,12 +28,61 @@ interface FeatureGroupInput {
 }
 
 interface MarkerInput {
-  name: string;
   latlng: L.LatLng;
+  name: string;
   options?: L.MarkerOptions;
 }
 
 interface TileLayerInput {
   urlTemplate: string;
   options?: L.TileLayerOptions;
+}
+
+interface LatLng {
+  lat: number;
+  lng: number;
+}
+
+interface LatLngBounds {
+  southWest: L.LatLngExpression;
+  northEast: L.LatLngExpression;
+}
+
+interface CustomLatLngBounds {
+  bounds: L.LatLngBounds;
+  markers: Marker[];
+}
+
+interface GeoPicture {
+  name: string;
+  layer: L.Path;
+}
+
+interface PolylineInput {
+  name: string;
+  latlngs: L.LatLng[];
+  options: L.PolylineOptions;
+}
+
+interface PolygonInput {
+  name: string;
+  latlngs: L.LatLng[];
+  options: L.PolylineOptions;
+}
+
+interface RectangleInput {
+  name: string;
+  latlngBounds: L.LatLngBounds;
+  options: L.PolylineOptions;
+}
+
+interface CircleInput {
+  name: string;
+  latlng: L.LatLng;
+  radius: number;
+  options: CustomCircleOptions;
+}
+
+interface CustomCircleOptions extends L.CircleOptions {
+  radius?: number;
 }

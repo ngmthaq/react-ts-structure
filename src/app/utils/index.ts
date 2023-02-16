@@ -57,3 +57,7 @@ export const getParams = (key?: string): any => {
 
   return key ? params.get(key) : Object.fromEntries(params.entries());
 };
+
+export const getRandomInRange = (from: any, to: any, fixed: any = 5) => {
+  return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
+};
