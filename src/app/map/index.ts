@@ -470,7 +470,9 @@ class Leaflet {
     this.map.on(event, callback);
   }
 
-  // Remove event listener
+  /**
+   * Remove event listener
+   */
   off(event: string) {
     if (!this.map) throw new Error("Map is not initialize yet");
     this.map.off(event);
