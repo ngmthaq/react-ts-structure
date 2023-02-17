@@ -2,7 +2,6 @@ import L from "leaflet";
 
 interface MapConfigs {
   id: string | HTMLElement;
-  className?: string;
   center: L.LatLngExpression;
   zoom?: number;
   worldCopyJump?: boolean;
@@ -28,7 +27,7 @@ interface FeatureGroupInput {
 }
 
 interface MarkerInput {
-  latlng: L.LatLng;
+  latlng: L.LatLngExpression;
   name: string;
   options?: L.MarkerOptions;
 }
@@ -60,27 +59,27 @@ interface GeoPicture {
 
 interface PolylineInput {
   name: string;
-  latlngs: L.LatLng[];
-  options: L.PolylineOptions;
+  latlngs: L.LatLngExpression[];
+  options?: L.PolylineOptions;
 }
 
 interface PolygonInput {
   name: string;
-  latlngs: L.LatLng[];
-  options: L.PolylineOptions;
+  latlngs: L.LatLngExpression[];
+  options?: L.PolylineOptions;
 }
 
 interface RectangleInput {
   name: string;
   latlngBounds: L.LatLngBounds;
-  options: L.PolylineOptions;
+  options?: L.PolylineOptions;
 }
 
 interface CircleInput {
   name: string;
-  latlng: L.LatLng;
+  latlng: L.LatLngExpression;
   radius: number;
-  options: CustomCircleOptions;
+  options?: CustomCircleOptions;
 }
 
 interface CustomCircleOptions extends L.CircleOptions {

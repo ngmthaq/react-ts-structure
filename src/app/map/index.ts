@@ -17,7 +17,7 @@ import {
 } from "spec/map";
 
 class Leaflet {
-  private map: L.Map;
+  private map?: L.Map;
   private groups: FeatureGroup[];
   private markers: Marker[];
   private clusteredMarkers: Marker[];
@@ -25,22 +25,26 @@ class Leaflet {
   private clusteredNumber: number;
   private clusteredDisableAtZoom: number;
 
-  constructor({
+  constructor() {
+    this.groups = [];
+    this.markers = [];
+    this.clusteredMarkers = [];
+    this.geoPictures = [];
+    this.clusteredNumber = 12;
+    this.clusteredDisableAtZoom = 12;
+  }
+
+  public init({
     id,
     center,
     zoom = 6,
     minZoom = 3,
     maxZoom = 12,
-    clusteredNumber = 10,
+    clusteredNumber = 12,
     clusteredDisableAtZoom = 12,
     worldCopyJump = true,
-    className = "",
     options = {},
   }: MapConfigs) {
-    this.groups = [];
-    this.markers = [];
-    this.clusteredMarkers = [];
-    this.geoPictures = [];
     this.clusteredNumber = clusteredNumber;
     this.clusteredDisableAtZoom = clusteredDisableAtZoom;
     this.map = L.map(id, {
@@ -60,6 +64,7 @@ class Leaflet {
    */
   public setTileLayer({ urlTemplate, options = {} }: TileLayerInput) {
     let layer = L.tileLayer(urlTemplate, options);
+    if (!this.map) throw new Error("Map is not initialize yet");
     this.map.addLayer(layer);
   }
 
@@ -67,6 +72,8 @@ class Leaflet {
    * Get map instance
    */
   public getMap(): L.Map {
+    if (!this.map) throw new Error("Map is not initialize yet");
+
     return this.map;
   }
 
@@ -99,6 +106,8 @@ class Leaflet {
    * Render feature group into map
    */
   public renderFeatureGroup(group: FeatureGroup) {
+    if (!this.map) throw new Error("Map is not initialize yet");
+
     this.map.addLayer(group.layer);
   }
 
@@ -115,6 +124,8 @@ class Leaflet {
    * Un-mount feature group layer from map
    */
   public unmountFeatureGroup(group: FeatureGroup) {
+    if (!this.map) throw new Error("Map is not initialize yet");
+
     if (this.map.hasLayer(group.layer)) {
       this.map.removeLayer(group.layer);
     }
@@ -172,6 +183,7 @@ class Leaflet {
    * Render marker into map
    */
   public renderMarker(marker: Marker, group?: FeatureGroup) {
+    if (!this.map) throw new Error("Map is not initialize yet");
     if (group) {
       group.layer.addLayer(marker.layer);
     } else {
@@ -193,11 +205,13 @@ class Leaflet {
    * Render all markers into map
    */
   public renderAllMarkers(group?: FeatureGroup) {
+    if (!this.map) throw new Error("Map is not initialize yet");
+
     this.unmountAllMarkers(group);
     this.clusteredMarkers = [];
 
-    const h: number = 20;
-    const w: number = 40;
+    const h: number = 10;
+    const w: number = 20;
     const bounds: L.LatLngBounds = this.map.getBounds();
     const nort: number = bounds.getNorth();
     const east: number = bounds.getEast();
@@ -252,6 +266,8 @@ class Leaflet {
       });
     }
 
+    this.clusteredMarkers = clusteredMarkers;
+
     this.clusteredMarkers.forEach(marker => {
       this.renderMarker(marker, group);
     });
@@ -261,6 +277,7 @@ class Leaflet {
    * Un-mount marker from map
    */
   public unmountMarker(marker: Marker, group?: FeatureGroup) {
+    if (!this.map) throw new Error("Map is not initialize yet");
     if (group) {
       if (group.layer.hasLayer(marker.layer)) {
         group.layer.removeLayer(marker.layer);
@@ -276,12 +293,14 @@ class Leaflet {
    * Un-mount all markers from map
    */
   public unmountAllMarkers(group?: FeatureGroup) {
+    if (!this.map) throw new Error("Map is not initialize yet");
     this.clusteredMarkers.forEach(marker => {
       if (group) {
         if (group.layer.hasLayer(marker.layer)) {
           group.layer.removeLayer(marker.layer);
         }
       } else {
+        if (!this.map) throw new Error("Map is not initialize yet");
         if (this.map.hasLayer(marker.layer)) {
           this.map.removeLayer(marker.layer);
         }
@@ -386,6 +405,7 @@ class Leaflet {
    * Render geo picture
    */
   public renderGeoPicture(pictue: GeoPicture, group?: FeatureGroup) {
+    if (!this.map) throw new Error("Map is not initialize yet");
     if (group) {
       group.layer.addLayer(pictue.layer);
     } else {
@@ -397,6 +417,7 @@ class Leaflet {
    * Render all geo pictures
    */
   public renderAllGeoPictures(group?: FeatureGroup) {
+    this.unmountAllGeoPictures(group);
     this.geoPictures.forEach(picture => {
       this.renderGeoPicture(picture, group);
     });
@@ -406,6 +427,7 @@ class Leaflet {
    * Un-mount geo picture layer from map
    */
   public unmountGeoPicture(picture: GeoPicture, group?: FeatureGroup) {
+    if (!this.map) throw new Error("Map is not initialize yet");
     if (group) {
       if (group.layer.hasLayer(picture.layer)) {
         group.layer.removeLayer(picture.layer);
@@ -444,11 +466,13 @@ class Leaflet {
    * Add event listener
    */
   on(event: string, callback: any) {
+    if (!this.map) throw new Error("Map is not initialize yet");
     this.map.on(event, callback);
   }
 
   // Remove event listener
   off(event: string) {
+    if (!this.map) throw new Error("Map is not initialize yet");
     this.map.off(event);
   }
 }
