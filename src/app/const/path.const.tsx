@@ -1,10 +1,10 @@
-import { RouteObjectConfig } from "spec/router";
 import Homepage from "app/pages/Homepage";
 import Login from "app/pages/Login";
 import withAuthMiddleware from "app/hoc/withAuthMiddleware";
 import withGuestMiddleware from "app/hoc/withGuestMiddleware";
+import { RouteObjectConfig } from "spec/router";
 
-const ROUTER_CONST: RouteObjectConfig = {
+const PATH_CONST: RouteObjectConfig = {
   login: {
     path: "/login",
     title: "title.login",
@@ -17,4 +17,4 @@ const ROUTER_CONST: RouteObjectConfig = {
   },
 };
 
-export default ROUTER_CONST;
+export default PATH_CONST;

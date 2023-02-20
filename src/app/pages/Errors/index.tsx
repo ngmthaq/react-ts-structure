@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useRouteError } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import { Box, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import ROUTER_CONST from "app/const/router.const";
+import PATH_CONST from "app/const/path.const";
+import useAppTranslation from "app/hooks/useAppTranslation";
 
 const Error = () => {
   const classes = useStyles();
   const error: any = useRouteError();
-  const { t } = useTranslation();
+  const { getLabel } = useAppTranslation();
 
   const [text, setText]: [string, Function] = useState("");
   const [status, setStatus]: [number, Function] = useState(0);
@@ -19,11 +19,11 @@ const Error = () => {
     if (error.status === 404) {
       setStatus(404);
       setText("errors.404");
-      document.title = t("errors.404");
+      document.title = getLabel("errors.404");
     } else {
       setStatus(500);
       setText("errors.500");
-      document.title = t("errors.500");
+      document.title = getLabel("errors.500");
     }
   }, [error]);
 
@@ -31,9 +31,9 @@ const Error = () => {
     <Box className={classes.cont} id="error-page">
       <Box className={classes.wrapper}>
         <p className={classes.status}>{status}</p>
-        <p className={classes.text}>{t(text)}</p>
-        <a className={classes.anchor} href={ROUTER_CONST.homepage.path}>
-          {t("button.backToHomepage")}
+        <p className={classes.text}>{getLabel(text)}</p>
+        <a className={classes.anchor} href={PATH_CONST.homepage.path}>
+          {getLabel("button.backToHomepage")}
         </a>
       </Box>
     </Box>

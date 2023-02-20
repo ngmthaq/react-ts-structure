@@ -6,6 +6,7 @@
     },
     "errors": {
       "404": "We can't seem to find the page or data you're looking for!",
+      "406": "Oops! The app can only be launched on the phone's browser",
       "500": "Oops! Something went wrong, please try again later."
     },
     "title": {
