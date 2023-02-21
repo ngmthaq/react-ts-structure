@@ -1,32 +1,86 @@
 @import "./variables";
 @import "./mixins";
 
-#map {
-    width: 100vw;
-    height: 100vh;
+// Swiper
+#swiper {
+    height: 90vh;
+    margin-top: 10vh;
+    overflow: hidden;
+    position: relative;
 
-    // Custom leaflet div icon
-    & .leaflet-div-icon {
-        background-color: transparent !important;
-        border: none !important;
-        & .custom_clustered_marker {
-            width: 32px !important;
-            height: 32px !important;
-            border-radius: 50% !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            background-color: blue;
-            color: whitesmoke;
+    & .card {
+        width: 90%;
+        height: 60%;
+        min-height: 60vh;
+        position: absolute;
+        border-radius: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        overflow: hidden;
+        filter: drop-shadow(2px 2px 20px rgba(0, 0, 0, 0.5));
+        cursor: pointer;
+        user-select: none;
+        transition: transform linear 0.05s, bottom linear 0.1s;
+        transform-origin: center;
+        will-change: transform;
+
+        & img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 50% 50%;
         }
-        & .custom_marker {
-            width: 12px !important;
-            height: 12px !important;
-            border-radius: 50% !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            background-color: green;
-        }
+    }
+
+    & #like,
+    & #dislike {
+        font-size: 16vh;
+        border-radius: 50%;
+        padding: 20px;
+        position: relative;
+        z-index: 1;
+        animation-name: animation1;
+        animation-duration: 1s;
+        animation-timing-function: ease-in-out;
+        animation-fill-mode: both;
+        /* don't run animation at the beginning */
+        animation-play-state: paused;
+    }
+
+    & #like.trigger,
+    & #dislike.trigger {
+        animation-name: animation2;
+    }
+
+    & #like {
+        color: red;
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    & #dislike {
+        color: #ccc;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+}
+
+@keyframes animation1 {
+    0%,
+    100% {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes animation2 {
+    0%,
+    100% {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 1;
     }
 }
