@@ -2,11 +2,11 @@ export interface Card {
   img: string;
   id: string;
   className: string;
-  onLike: CallableFunction;
-  onDislike: CallableFunction;
-  onSkip: CallableFunction;
-  onClick: CallableFunction;
   additionalData?: any;
+  onLike: SwiperEventListener;
+  onDislike: SwiperEventListener;
+  onSkip: SwiperEventListener;
+  onClick: SwiperEventListener;
 }
 
 export interface CardList {
@@ -15,3 +15,5 @@ export interface CardList {
   ctx: Card;
   additionalData?: any;
 }
+
+export type SwiperEventListener = (card: HTMLElement, id: string, additionalData?: any) => void;

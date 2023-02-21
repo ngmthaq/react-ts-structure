@@ -8,7 +8,6 @@ class Swiper {
   private startPointY: number | null;
   private endPointX: number | null;
   private endPointY: number | null;
-  private defaultBottom: string | null;
   private defaultTransfrom: string | null;
 
   constructor() {
@@ -19,7 +18,6 @@ class Swiper {
     this.startPointY = null;
     this.endPointX = null;
     this.endPointY = null;
-    this.defaultBottom = null;
     this.defaultTransfrom = null;
   }
 
@@ -43,14 +41,13 @@ class Swiper {
     if (swiper) {
       swiper.innerHTML = "";
       this.cards.forEach((card, index, array) => {
-        let scale = (array.length - index / array.length) / array.length;
+        let scale = (array.length - (index * 2) / array.length) / array.length;
         let transform = `translateX(-50%) scale(${scale})`;
         let bottom = index * 24 + 24 + "px";
         if (index === 0) {
-          this.defaultBottom = bottom;
           this.defaultTransfrom = transform;
           card.el.addEventListener("click", (ev: MouseEvent) => {
-            this.onClick(ev, card.id, card.ctx.onClick);
+            card.ctx.onClick(card.el, card.id, card.additionalData);
           });
 
           card.el.addEventListener("touchstart", (ev: TouchEvent) => {
@@ -80,14 +77,13 @@ class Swiper {
     let swiper = this.getSwiper();
     if (swiper) {
       this.cards.forEach((card, index, array) => {
-        let scale = (array.length - index / array.length) / array.length;
+        let scale = (array.length - (index * 2) / array.length) / array.length;
         let transform = `translateX(-50%) scale(${scale})`;
         let bottom = index * 24 + 24 + "px";
         if (index === 0) {
-          this.defaultBottom = bottom;
           this.defaultTransfrom = transform;
           card.el.addEventListener("click", (ev: MouseEvent) => {
-            this.onClick(ev, card.id, card.ctx.onClick);
+            card.ctx.onClick(card.el, card.id, card.additionalData);
           });
 
           card.el.addEventListener("touchstart", (ev: TouchEvent) => {
@@ -128,13 +124,6 @@ class Swiper {
     this.cards = this.cards.filter(card => card.id !== id);
   }
 
-  private onClick(ev: MouseEvent, id: string, callback: CallableFunction) {
-    let card = this.getCard(id);
-    if (card) {
-      callback(card.el, card.additionalData);
-    }
-  }
-
   private onTouchStart(ev: TouchEvent) {
     this.isTouchStart = true;
     let touch = ev.touches[0];
@@ -149,7 +138,7 @@ class Swiper {
       let touch = ev.changedTouches[0];
       let changedTouchX = touch.clientX - this.startPointX - w / 2.5;
       let changedTouchY = touch.clientY - this.startPointY;
-      let rotate = changedTouchX * 0.05;
+      let rotate = (touch.clientX - this.startPointX) * 0.05;
       card.el.style.transform = `translate(${changedTouchX}px, ${changedTouchY}px) rotate(${rotate}deg)`;
     }
   }
@@ -162,21 +151,21 @@ class Swiper {
       this.endPointY = touch.clientY;
       let w = window.innerWidth;
       let h = window.innerHeight;
-      if (this.endPointY < h - 24) {
-        if (this.endPointX < w - 24 && this.endPointX > 24) {
+      if (this.endPointY < h - 16) {
+        if (this.endPointX < w - 16 && this.endPointX > 16) {
           card.el.style.transform = this.defaultTransfrom ? this.defaultTransfrom : "";
         } else {
-          if (this.endPointX <= 24) {
-            card.ctx.onDislike(card.el, card.additionalData);
+          if (this.endPointX <= 16) {
+            card.ctx.onDislike(card.el, card.id, card.additionalData);
           } else {
-            card.ctx.onLike(card.el, card.additionalData);
+            card.ctx.onLike(card.el, card.id, card.additionalData);
           }
           this.getSwiper().removeChild(card.el);
           this.removeCard(id);
           this.updateCards();
         }
       } else {
-        card.ctx.onSkip(card.el, card.additionalData);
+        card.ctx.onSkip(card.el, card.id, card.additionalData);
         this.getSwiper().removeChild(card.el);
         this.removeCard(id);
         this.updateCards();

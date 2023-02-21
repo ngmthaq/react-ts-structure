@@ -6,7 +6,6 @@ import i18n from "app/locales";
 import store from "app/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import "leaflet/dist/leaflet.css";
 import "./app/theme/scss/style.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
