@@ -41,7 +41,7 @@ class Swiper {
     if (swiper) {
       swiper.innerHTML = "";
       this.cards.forEach((card, index, array) => {
-        let scale = (array.length - (index * 2) / array.length) / array.length;
+        let scale = array.length > 0 ? 1 - index / 32 : 1;
         let transform = `translateX(-50%) scale(${scale})`;
         let bottom = index * 24 + 24 + "px";
         if (index === 0) {
@@ -77,7 +77,7 @@ class Swiper {
     let swiper = this.getSwiper();
     if (swiper) {
       this.cards.forEach((card, index, array) => {
-        let scale = (array.length - (index * 2) / array.length) / array.length;
+        let scale = array.length > 0 ? 1 - index / 32 : 1;
         let transform = `translateX(-50%) scale(${scale})`;
         let bottom = index * 24 + 24 + "px";
         if (index === 0) {
