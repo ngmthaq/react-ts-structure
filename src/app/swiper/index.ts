@@ -5,7 +5,8 @@ import closeIcon from "app/theme/img/close.png";
 class Swiper {
   private cards: CardList[];
   private swiper: string | null;
-  private buttons: HTMLElement | null;
+  private likeButton: HTMLElement;
+  private dislikeButton: HTMLElement;
   private isTouchStart: boolean;
   private startPointX: number | null;
   private startPointY: number | null;
@@ -15,7 +16,8 @@ class Swiper {
 
   constructor() {
     this.swiper = null;
-    this.buttons = null;
+    this.likeButton = this.createLikeButton({});
+    this.dislikeButton = this.createDislikeButton({});
     this.isTouchStart = false;
     this.cards = [];
     this.startPointX = null;
@@ -47,6 +49,8 @@ class Swiper {
     let swiper = this.getSwiper();
     if (swiper) {
       swiper.innerHTML = "";
+      swiper.append(this.likeButton);
+      swiper.append(this.dislikeButton);
       this.cards.forEach((card, index, array) => {
         let scale = array.length > 0 ? 1 - index / 32 : 1;
         let transform = `translateX(-50%) scale(${scale})`;
