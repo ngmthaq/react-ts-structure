@@ -17,3 +17,9 @@ export interface CardList {
 }
 
 export type SwiperEventListener = (card: HTMLElement, id: string, additionalData?: any) => void;
+
+export interface ActionButtonAttributes {
+  className?: string;
+  icon?: string;
+  iconClassName?: string;
+}

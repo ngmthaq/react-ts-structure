@@ -1,8 +1,11 @@
-import { Card, CardList } from "spec/swiper";
+import { ActionButtonAttributes, Card, CardList } from "spec/swiper";
+import heartIcon from "app/theme/img/heart.png";
+import closeIcon from "app/theme/img/close.png";
 
 class Swiper {
   private cards: CardList[];
   private swiper: string | null;
+  private buttons: HTMLElement | null;
   private isTouchStart: boolean;
   private startPointX: number | null;
   private startPointY: number | null;
@@ -12,6 +15,7 @@ class Swiper {
 
   constructor() {
     this.swiper = null;
+    this.buttons = null;
     this.isTouchStart = false;
     this.cards = [];
     this.startPointX = null;
@@ -19,6 +23,9 @@ class Swiper {
     this.endPointX = null;
     this.endPointY = null;
     this.defaultTransfrom = null;
+
+    window.addEventListener("touchstart", this.onDocumentTouchHandle);
+    window.addEventListener("touchmove", this.onDocumentTouchHandle);
   }
 
   public init(id: string) {
@@ -181,6 +188,54 @@ class Swiper {
 
   private onTouchCanel(ev: TouchEvent, id: string) {
     this.onTouchEnd(ev, id);
+  }
+
+  private createLikeButton(args: ActionButtonAttributes) {
+    let className = args.className ? args.className : "swiper_action_button";
+    let button = document.createElement("button");
+    let icon = document.createElement("img");
+    icon.src = args.icon ? args.icon : heartIcon;
+    icon.className = args.iconClassName ? args.iconClassName : "";
+    button.className = className + " like_button";
+    button.append(icon);
+    button.addEventListener("click", () => {
+      if (this.cards.length === 0) return false;
+      let card = this.cards[0];
+      card.ctx.onLike(card.el, card.id, card.additionalData);
+      this.getSwiper().removeChild(card.el);
+      this.removeCard(card.id);
+      this.updateCards();
+    });
+
+    return button;
+  }
+
+  private createDislikeButton(args: ActionButtonAttributes) {
+    let className = args.className ? args.className : "swiper_action_button";
+    let button = document.createElement("button");
+    let icon = document.createElement("img");
+    icon.src = args.icon ? args.icon : closeIcon;
+    icon.className = args.iconClassName ? args.iconClassName : "";
+    button.className = className + " dislike_button";
+    button.append(icon);
+    button.addEventListener("click", () => {
+      if (this.cards.length === 0) return false;
+      let card = this.cards[0];
+      card.ctx.onDislike(card.el, card.id, card.additionalData);
+      this.getSwiper().removeChild(card.el);
+      this.removeCard(card.id);
+      this.updateCards();
+    });
+
+    return button;
+  }
+
+  private onDocumentTouchHandle() {
+    if (this.isTouchStart) {
+      document.body.style.overscrollBehaviorY = "none";
+    } else {
+      document.body.style.overscrollBehaviorY = "auto";
+    }
   }
 }
 
