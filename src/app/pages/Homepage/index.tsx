@@ -14,8 +14,7 @@ const Homepage: React.FC<HomepageProps> = () => {
 
       swiper.onUpdated((nextCard, totalCardList) => {
         if (totalCardList.length <= 5) {
-          let cards = mockCards(5);
-          swiper.appendCards(cards);
+          swiper.appendCards(mockCards(5));
         }
       });
     }
@@ -30,11 +29,29 @@ interface HomepageProps {}
 
 const mockCards = (max: number = 10): Card[] => {
   let output: Card[] = [];
-  let types: string[] = ["sky", "beach", "sea", "mountain", "home", "city", "dog", "house", "train", "cat"];
+  let types: string[] = [
+    "sky",
+    "beach",
+    "sea",
+    "mountain",
+    "home",
+    "city",
+    "dog",
+    "house",
+    "train",
+    "cat",
+    "thor",
+    "spiderman",
+    "forest",
+  ];
 
   for (let index = 0; index < max; index++) {
     output.push({
-      img: "https://source.unsplash.com/random/1000x1000/?" + types[index],
+      img:
+        "https://source.unsplash.com/random/1000x1000/?" +
+        types[Math.floor(Math.random() * types.length)] +
+        "&time=" +
+        Date.now(),
       id: getRandomInRange(1, 100000).toString() + "___" + index,
       className: "card",
       additionalData: { foo: "bar" },
