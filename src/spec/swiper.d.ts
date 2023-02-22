@@ -23,3 +23,5 @@ export interface ActionButtonAttributes {
   icon?: string;
   iconClassName?: string;
 }
+
+export type UpdatedEventListener = (nextCard: CardList | null, totalCardsLeft: CardList[]) => void;

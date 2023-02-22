@@ -1,4 +1,4 @@
-import { ActionButtonAttributes, Card, CardList } from "spec/swiper";
+import { ActionButtonAttributes, Card, CardList, UpdatedEventListener } from "spec/swiper";
 import heartIcon from "app/theme/img/heart.png";
 import closeIcon from "app/theme/img/close.png";
 
@@ -13,6 +13,7 @@ class Swiper {
   private endPointX: number | null;
   private endPointY: number | null;
   private defaultTransfrom: string | null;
+  private updated: CallableFunction;
 
   constructor() {
     this.swiper = null;
@@ -25,6 +26,7 @@ class Swiper {
     this.endPointX = null;
     this.endPointY = null;
     this.defaultTransfrom = null;
+    this.updated = () => {};
 
     window.addEventListener("touchstart", this.onDocumentTouchHandle);
     window.addEventListener("touchmove", this.onDocumentTouchHandle);
@@ -34,24 +36,63 @@ class Swiper {
     this.swiper = id;
   }
 
-  public createCard(card: Card) {
-    let div = document.createElement("div");
-    let img = document.createElement("img");
-    div.id = card.id;
-    div.className = card.className;
-    img.src = card.img;
-    div.appendChild(img);
-
-    this.cards.push({ id: card.id, el: div, ctx: card, additionalData: card.additionalData || null });
+  /**
+   * Initial card into swiper container
+   * @param cards
+   */
+  public createCards(cards: Card[]) {
+    let output: CardList[] = [];
+    cards.forEach(card => {
+      let div = document.createElement("div");
+      let img = document.createElement("img");
+      div.id = card.id;
+      div.className = card.className;
+      img.src = card.img;
+      div.appendChild(img);
+      output.push({ id: card.id, el: div, ctx: card, additionalData: card.additionalData || null });
+    });
+    this.cards = this.cards.concat(output);
+    let swiper = this.getSwiper();
+    this.renderCards(output, swiper);
   }
 
-  public renderCards() {
+  /**
+   * Append cards into swiper container
+   * @param cards
+   */
+  public appendCards(cards: Card[]) {
+    let output: CardList[] = [];
+    cards.forEach(card => {
+      let div = document.createElement("div");
+      let img = document.createElement("img");
+      div.id = card.id;
+      div.className = card.className;
+      img.src = card.img;
+      div.appendChild(img);
+      output.push({ id: card.id, el: div, ctx: card, additionalData: card.additionalData || null });
+    });
+    this.cards = this.cards.concat(output);
     let swiper = this.getSwiper();
+    this.renderAppendCards(output, swiper);
+  }
+
+  /**
+   * Add event listener when swiper update card
+   * @param callback
+   */
+  public onUpdated(callback: UpdatedEventListener) {
+    this.updated = () => {
+      let nextCard = this.cards.length === 0 ? null : this.cards[0];
+      callback(nextCard, this.cards);
+    };
+  }
+
+  private renderAppendCards(input: CardList[], swiper: HTMLElement) {
     if (swiper) {
-      swiper.innerHTML = "";
       swiper.append(this.likeButton);
       swiper.append(this.dislikeButton);
-      this.cards.forEach((card, index, array) => {
+      input.forEach((card, _, array) => {
+        let index = this.cards.findIndex(sCard => sCard.id === card.id);
         let scale = array.length > 0 ? 1 - index / 32 : 1;
         let transform = `translateX(-50%) scale(${scale})`;
         let bottom = index * 24 + 24 + "px";
@@ -77,8 +118,51 @@ class Swiper {
             this.onTouchMove(ev, card.id);
           });
         }
-        card.el.style.bottom = bottom;
+        card.el.style.bottom = "-1000px";
         card.el.style.transform = transform;
+        setTimeout(() => {
+          card.el.style.bottom = bottom;
+        }, index * 100);
+        swiper.prepend(card.el);
+      });
+    }
+  }
+
+  private renderCards(input: CardList[], swiper: HTMLElement) {
+    if (swiper) {
+      swiper.append(this.likeButton);
+      swiper.append(this.dislikeButton);
+      input.forEach((card, index, array) => {
+        let scale = array.length > 0 ? 1 - index / 32 : 1;
+        let transform = `translateX(-50%) scale(${scale})`;
+        let bottom = index * 24 + 24 + "px";
+        if (index === 0) {
+          this.defaultTransfrom = transform;
+          card.el.addEventListener("click", (ev: MouseEvent) => {
+            card.ctx.onClick(card.el, card.id, card.additionalData);
+          });
+
+          card.el.addEventListener("touchstart", (ev: TouchEvent) => {
+            this.onTouchStart(ev);
+          });
+
+          card.el.addEventListener("touchend", (ev: TouchEvent) => {
+            this.onTouchEnd(ev, card.id);
+          });
+
+          card.el.addEventListener("touchcancel", (ev: TouchEvent) => {
+            this.onTouchCanel(ev, card.id);
+          });
+
+          card.el.addEventListener("touchmove", (ev: TouchEvent) => {
+            this.onTouchMove(ev, card.id);
+          });
+        }
+        card.el.style.bottom = "-1000px";
+        card.el.style.transform = transform;
+        setTimeout(() => {
+          card.el.style.bottom = bottom;
+        }, index * 100);
         swiper.prepend(card.el);
       });
     }
@@ -116,6 +200,8 @@ class Swiper {
         card.el.style.bottom = bottom;
         card.el.style.transform = transform;
       });
+
+      this.updated();
     }
   }
 
@@ -204,11 +290,19 @@ class Swiper {
     button.append(icon);
     button.addEventListener("click", () => {
       if (this.cards.length === 0) return false;
+      button.disabled = true;
       let card = this.cards[0];
       card.ctx.onLike(card.el, card.id, card.additionalData);
-      this.getSwiper().removeChild(card.el);
-      this.removeCard(card.id);
-      this.updateCards();
+      let w = window.innerWidth;
+      let rotate = (0 + w) * 0.05;
+      card.el.style.transition = "all linear 0.5s";
+      card.el.style.transform = `translateX(1000px) rotate(${rotate}deg)`;
+      setTimeout(() => {
+        this.getSwiper().removeChild(card.el);
+        this.removeCard(card.id);
+        this.updateCards();
+        button.disabled = false;
+      }, 250);
     });
 
     return button;
@@ -224,11 +318,19 @@ class Swiper {
     button.append(icon);
     button.addEventListener("click", () => {
       if (this.cards.length === 0) return false;
+      button.disabled = true;
       let card = this.cards[0];
       card.ctx.onDislike(card.el, card.id, card.additionalData);
-      this.getSwiper().removeChild(card.el);
-      this.removeCard(card.id);
-      this.updateCards();
+      let w = window.innerWidth;
+      let rotate = (0 - w) * 0.05;
+      card.el.style.transition = "all linear 0.5s";
+      card.el.style.transform = `translateX(-1000px) rotate(${rotate}deg)`;
+      setTimeout(() => {
+        this.getSwiper().removeChild(card.el);
+        this.removeCard(card.id);
+        this.updateCards();
+        button.disabled = false;
+      }, 250);
     });
 
     return button;
