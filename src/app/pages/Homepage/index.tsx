@@ -1,37 +1,81 @@
-import React, { useMemo, useEffect } from "react";
-import { Box } from "@mui/material";
+import React, { useMemo, useEffect, useState } from "react";
+import { Box, Theme, Typography } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import APP_CONST from "app/const/app.const";
 import Swiper from "app/swiper";
 import { getRandomInRange } from "app/utils";
 import MainLayout from "app/layouts/MainLayout";
 import { Card } from "spec/swiper";
+import ToggleUISwitcher from "./components/ToggleUISwitcher";
 
-const Homepage: React.FC<HomepageProps> = () => {
+const Homepage: React.FC<Props> = () => {
+  const classes = useStyles();
   const swiper = useMemo(() => new Swiper(), []);
+  const defaultMode = useMemo(() => APP_CONST.viewModes.swipe, []);
+
+  const [mode, setMode] = useState(defaultMode);
+
+  const onChangeMode = (id: number) => {
+    let newMode = Object.values(APP_CONST.viewModes).find(m => m.id === id);
+    if (newMode) {
+      setMode(newMode);
+    }
+  };
 
   useEffect(() => {
     let cont = document.getElementById("swiper");
     if (cont && swiper) {
-      swiper.init("swiper");
-      swiper.createCards(mockCards());
+      if (mode.id === APP_CONST.viewModes.swipe.id) {
+        console.log("init");
+        swiper.init("swiper");
+        swiper.createCards(mockCards());
 
-      swiper.onUpdated((nextCard, totalCardList) => {
-        if (totalCardList.length <= 5) {
-          swiper.appendCards(mockCards(5));
-        }
-      });
+        swiper.onUpdated((nextCard, totalCardList) => {
+          if (totalCardList.length <= 5) {
+            swiper.appendCards(mockCards(5));
+          }
+        });
+      } else if (mode.id === APP_CONST.viewModes.scroll.id) {
+        console.log("unmount");
+        swiper.unmount();
+      }
     }
-  }, [swiper]);
+  }, [swiper, mode]);
 
   return (
     <MainLayout>
-      <Box id="swiper"></Box>
+      <Box className={classes.nav}>
+        <Typography className={classes.navTitle}>Select view mode</Typography>
+        <ToggleUISwitcher mode={mode} onChangeMode={onChangeMode} />
+      </Box>
+      <Box id="swiper" className={mode.id === APP_CONST.viewModes.swipe.id ? classes.swiper : "hide"}></Box>
+      <Box className={mode.id === APP_CONST.viewModes.scroll.id ? "show" : "hide"}></Box>
     </MainLayout>
   );
 };
 
 export default Homepage;
 
-interface HomepageProps {}
+const useStyles = makeStyles((theme: Theme) => ({
+  nav: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: 8,
+    height: APP_CONST.nav.height,
+  },
+
+  navTitle: {
+    fontWeight: 600,
+  },
+
+  swiper: {
+    height: `calc(100% - ${APP_CONST.nav.height}px) !important`,
+    overflow: "hidden",
+  },
+}));
+
+interface Props {}
 
 const mockCards = (max: number = 10): Card[] => {
   let output: Card[] = [];

@@ -6,7 +6,7 @@ import { makeStyles } from "@mui/styles";
 import PATH_CONST from "app/const/path.const";
 import useAppTranslation from "app/hooks/useAppTranslation";
 
-const Error = () => {
+const Error: React.FC<Props> = () => {
   const classes = useStyles();
   const error: any = useRouteError();
   const { getLabel } = useAppTranslation();
@@ -75,3 +75,5 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: 8,
   },
 }));
+
+interface Props {}

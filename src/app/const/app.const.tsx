@@ -1,3 +1,5 @@
+import LayersOutlinedIcon from "@mui/icons-material/LayersOutlined";
+import TableRowsRoundedIcon from "@mui/icons-material/TableRowsRounded";
 import { AppConst } from "spec/app.const";
 
 const APP_CONST: AppConst = {
@@ -6,6 +8,21 @@ const APP_CONST: AppConst = {
   },
   footer: {
     height: 52,
+  },
+  nav: {
+    height: 52,
+  },
+  viewModes: {
+    swipe: {
+      id: 0,
+      alt: "Swipe mode",
+      Icon: LayersOutlinedIcon,
+    },
+    scroll: {
+      id: 1,
+      alt: "Scroll mode",
+      Icon: TableRowsRoundedIcon,
+    },
   },
 };
 

@@ -6,7 +6,7 @@ import { Home, History, TuneRounded } from "@mui/icons-material";
 import PATH_CONST from "app/const/path.const";
 import APP_CONST from "app/const/app.const";
 
-const Footer: React.FC<FooterProps> = () => {
+const Footer: React.FC<Props> = () => {
   const classes = useStyles();
 
   return (
@@ -43,4 +43,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-interface FooterProps {}
+interface Props {}

@@ -3,7 +3,7 @@ import { Box, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import useAppTranslation from "app/hooks/useAppTranslation";
 
-const Desktop = () => {
+const Desktop: React.FC<Props> = () => {
   const classes = useStyles();
   const { getLabel } = useAppTranslation();
 
@@ -51,3 +51,5 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: "#909090",
   },
 }));
+
+interface Props {}

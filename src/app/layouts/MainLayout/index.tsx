@@ -5,7 +5,7 @@ import APP_CONST from "app/const/app.const";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+const MainLayout: React.FC<Props> = ({ children }) => {
   const classes = useStyles();
 
   return (
@@ -32,6 +32,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-interface MainLayoutProps {
+interface Props {
   children: React.ReactNode;
 }

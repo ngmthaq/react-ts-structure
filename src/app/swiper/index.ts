@@ -180,11 +180,8 @@ class Swiper {
             this.onTouchMove(ev, card.id);
           });
         }
-        card.el.style.bottom = "-1000px";
+        card.el.style.bottom = bottom;
         card.el.style.transform = transform;
-        setTimeout(() => {
-          card.el.style.bottom = bottom;
-        }, index * 100);
         swiper.prepend(card.el);
       });
     }
@@ -320,6 +317,7 @@ class Swiper {
       card.el.style.transition = "all linear 0.5s";
       card.el.style.transform = `translateX(1000px) rotate(${rotate}deg)`;
       setTimeout(() => {
+        console.log(card);
         this.getSwiper().removeChild(card.el);
         this.removeCard(card.id);
         this.updateCards();

@@ -4,7 +4,7 @@ import KEY_CONST from "app/const/key.const";
 import { setLocalStorage } from "app/utils";
 import PATH_CONST from "app/const/path.const";
 
-const Login = () => {
+const Login: React.FC<Props> = () => {
   const navigate = useNavigate();
   const [input, setInput] = useState("");
 
@@ -31,3 +31,5 @@ const Login = () => {
 };
 
 export default Login;
+
+interface Props {}

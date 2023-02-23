@@ -5,7 +5,7 @@ import { Theme, Box } from "@mui/material";
 import PATH_CONST from "app/const/path.const";
 import APP_CONST from "app/const/app.const";
 
-const Header: React.FC<HeaderProps> = () => {
+const Header: React.FC<Props> = () => {
   const classes = useStyles();
 
   return (
@@ -40,4 +40,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-interface HeaderProps {}
+interface Props {}
