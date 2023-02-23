@@ -8,7 +8,7 @@ const Homepage: React.FC<HomepageProps> = () => {
 
   useEffect(() => {
     let cont = document.getElementById("swiper");
-    if (cont) {
+    if (cont && swiper) {
       swiper.init("swiper");
       swiper.createCards(mockCards());
 
@@ -47,11 +47,7 @@ const mockCards = (max: number = 10): Card[] => {
 
   for (let index = 0; index < max; index++) {
     output.push({
-      img:
-        "https://source.unsplash.com/random/1000x1000/?" +
-        types[Math.floor(Math.random() * types.length)] +
-        "&time=" +
-        Date.now(),
+      img: "https://source.unsplash.com/random/1000x1000/?" + types[Math.floor(Math.random() * types.length)],
       id: getRandomInRange(1, 100000).toString() + "___" + index,
       className: "card",
       additionalData: { foo: "bar" },

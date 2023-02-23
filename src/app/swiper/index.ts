@@ -43,12 +43,7 @@ class Swiper {
   public createCards(cards: Card[]) {
     let output: CardList[] = [];
     cards.forEach(card => {
-      let div = document.createElement("div");
-      let img = document.createElement("img");
-      div.id = card.id;
-      div.className = card.className;
-      img.src = card.img;
-      div.appendChild(img);
+      let div = this.createCardElement(card);
       output.push({ id: card.id, el: div, ctx: card, additionalData: card.additionalData || null });
     });
     this.cards = this.cards.concat(output);
@@ -63,12 +58,7 @@ class Swiper {
   public appendCards(cards: Card[]) {
     let output: CardList[] = [];
     cards.forEach(card => {
-      let div = document.createElement("div");
-      let img = document.createElement("img");
-      div.id = card.id;
-      div.className = card.className;
-      img.src = card.img;
-      div.appendChild(img);
+      let div = this.createCardElement(card);
       output.push({ id: card.id, el: div, ctx: card, additionalData: card.additionalData || null });
     });
     this.cards = this.cards.concat(output);
@@ -85,6 +75,37 @@ class Swiper {
       let nextCard = this.cards.length === 0 ? null : this.cards[0];
       callback(nextCard, this.cards);
     };
+  }
+
+  /**
+   * Unmount swiper
+   */
+  public unmount() {
+    window.removeEventListener("touchstart", this.onDocumentTouchHandle);
+    window.removeEventListener("touchmove", this.onDocumentTouchHandle);
+    this.getSwiper().innerHTML = "";
+    this.swiper = null;
+    this.likeButton = this.createLikeButton({});
+    this.dislikeButton = this.createDislikeButton({});
+    this.isTouchStart = false;
+    this.cards = [];
+    this.startPointX = null;
+    this.startPointY = null;
+    this.endPointX = null;
+    this.endPointY = null;
+    this.defaultTransfrom = null;
+    this.updated = () => {};
+  }
+
+  private createCardElement(card: Card) {
+    let div = document.createElement("div");
+    let img = document.createElement("img");
+    div.id = card.id;
+    div.className = card.className;
+    img.src = card.img;
+    div.appendChild(img);
+
+    return div;
   }
 
   private renderAppendCards(input: CardList[], swiper: HTMLElement) {
