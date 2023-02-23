@@ -26,7 +26,6 @@ const Homepage: React.FC<Props> = () => {
     let cont = document.getElementById("swiper");
     if (cont && swiper) {
       if (mode.id === APP_CONST.viewModes.swipe.id) {
-        console.log("init");
         swiper.init("swiper");
         swiper.createCards(mockCards());
 
@@ -36,7 +35,6 @@ const Homepage: React.FC<Props> = () => {
           }
         });
       } else if (mode.id === APP_CONST.viewModes.scroll.id) {
-        console.log("unmount");
         swiper.unmount();
       }
     }

@@ -317,7 +317,6 @@ class Swiper {
       card.el.style.transition = "all linear 0.5s";
       card.el.style.transform = `translateX(1000px) rotate(${rotate}deg)`;
       setTimeout(() => {
-        console.log(card);
         this.getSwiper().removeChild(card.el);
         this.removeCard(card.id);
         this.updateCards();

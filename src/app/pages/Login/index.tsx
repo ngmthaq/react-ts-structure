@@ -22,6 +22,7 @@ const Login: React.FC<Props> = () => {
   return (
     <div>
       <h1>Login page</h1>
+      <small>Type anything and submit form for login</small>
       <form onSubmit={onSubmit}>
         <input type="text" value={input} onChange={onChange} placeholder="Enter your username" />
         <button type="submit">Login</button>
