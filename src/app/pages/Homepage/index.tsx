@@ -1,7 +1,9 @@
 import React, { useMemo, useEffect } from "react";
+import { Box } from "@mui/material";
 import Swiper from "app/swiper";
-import { Card } from "spec/swiper";
 import { getRandomInRange } from "app/utils";
+import MainLayout from "app/layouts/MainLayout";
+import { Card } from "spec/swiper";
 
 const Homepage: React.FC<HomepageProps> = () => {
   const swiper = useMemo(() => new Swiper(), []);
@@ -20,7 +22,11 @@ const Homepage: React.FC<HomepageProps> = () => {
     }
   }, [swiper]);
 
-  return <div id="swiper"></div>;
+  return (
+    <MainLayout>
+      <Box id="swiper"></Box>
+    </MainLayout>
+  );
 };
 
 export default Homepage;

@@ -1,6 +1,7 @@
 import { ActionButtonAttributes, Card, CardList, UpdatedEventListener } from "spec/swiper";
 import heartIcon from "app/theme/img/heart.png";
 import closeIcon from "app/theme/img/close.png";
+import APP_CONST from "app/const/app.const";
 
 class Swiper {
   private cards: CardList[];
@@ -116,7 +117,7 @@ class Swiper {
         let index = this.cards.findIndex(sCard => sCard.id === card.id);
         let scale = array.length > 0 ? 1 - index / 32 : 1;
         let transform = `translateX(-50%) scale(${scale})`;
-        let bottom = index * 24 + 24 + "px";
+        let bottom = index * 16 + 16 + "px";
         if (index === 0) {
           this.defaultTransfrom = transform;
           card.el.addEventListener("click", (ev: MouseEvent) => {
@@ -156,7 +157,7 @@ class Swiper {
       input.forEach((card, index, array) => {
         let scale = array.length > 0 ? 1 - index / 32 : 1;
         let transform = `translateX(-50%) scale(${scale})`;
-        let bottom = index * 24 + 24 + "px";
+        let bottom = index * 16 + 16 + "px";
         if (index === 0) {
           this.defaultTransfrom = transform;
           card.el.addEventListener("click", (ev: MouseEvent) => {
@@ -195,7 +196,7 @@ class Swiper {
       this.cards.forEach((card, index, array) => {
         let scale = array.length > 0 ? 1 - index / 32 : 1;
         let transform = `translateX(-50%) scale(${scale})`;
-        let bottom = index * 24 + 24 + "px";
+        let bottom = index * 16 + 16 + "px";
         if (index === 0) {
           this.defaultTransfrom = transform;
           card.el.addEventListener("click", (ev: MouseEvent) => {
@@ -269,7 +270,7 @@ class Swiper {
       this.endPointY = touch.clientY;
       let w = window.innerWidth;
       let h = window.innerHeight;
-      if (this.endPointY < h - 16) {
+      if (this.endPointY < h - 16 - APP_CONST.footer.height) {
         if (this.endPointX < w - 16 && this.endPointX > 16) {
           card.el.style.transform = this.defaultTransfrom ? this.defaultTransfrom : "";
         } else {
