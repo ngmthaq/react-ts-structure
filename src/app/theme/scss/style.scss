@@ -47,6 +47,7 @@ body {
         border: none;
         position: fixed;
         bottom: 64px;
+        background-color: map-get($map: $lightPalette, $key: common_white);
 
         &.like_button {
             right: 16px;
