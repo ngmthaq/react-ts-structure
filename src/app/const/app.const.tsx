@@ -12,6 +12,9 @@ const APP_CONST: AppConst = {
   nav: {
     height: 52,
   },
+  notification: {
+    timeout: 6000,
+  },
   viewModes: {
     swipe: {
       id: 0,

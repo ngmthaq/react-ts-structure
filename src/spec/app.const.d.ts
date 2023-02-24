@@ -5,6 +5,7 @@ export interface AppConst {
   footer: FooterAppConst;
   nav: FooterAppConst;
   viewModes: ViewModeConst;
+  notification: NotificationConst;
 }
 
 export interface HeaderAppConst {
@@ -17,6 +18,10 @@ export interface FooterAppConst {
 
 export interface NavAppConst {
   height: number;
+}
+
+export interface NotificationConst {
+  timeout: number;
 }
 
 export interface ViewMode {

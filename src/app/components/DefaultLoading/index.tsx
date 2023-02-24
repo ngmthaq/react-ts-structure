@@ -8,10 +8,12 @@ const DefaultLoading: React.FC<Props> = () => {
   const classes = useStyles();
   const isLoading = useAppSelector(state => state.common.isLoading);
 
-  return (
-    <Box className={isLoading ? classes.defaultLoadingContainer : "hide"}>
+  return isLoading ? (
+    <Box className={classes.defaultLoadingContainer} id="default_loading_component">
       <CircularProgress />
     </Box>
+  ) : (
+    <React.Fragment></React.Fragment>
   );
 };
 
