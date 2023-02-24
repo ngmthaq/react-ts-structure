@@ -124,21 +124,37 @@ class Swiper {
             card.ctx.onClick(card.el, card.id, card.additionalData);
           });
 
-          card.el.addEventListener("touchstart", (ev: TouchEvent) => {
-            this.onTouchStart(ev);
-          });
+          card.el.addEventListener(
+            "touchstart",
+            (ev: TouchEvent) => {
+              this.onTouchStart(ev);
+            },
+            { passive: true },
+          );
 
-          card.el.addEventListener("touchend", (ev: TouchEvent) => {
-            this.onTouchEnd(ev, card.id);
-          });
+          card.el.addEventListener(
+            "touchend",
+            (ev: TouchEvent) => {
+              this.onTouchEnd(ev, card.id);
+            },
+            { passive: true },
+          );
 
-          card.el.addEventListener("touchcancel", (ev: TouchEvent) => {
-            this.onTouchCanel(ev, card.id);
-          });
+          card.el.addEventListener(
+            "touchcancel",
+            (ev: TouchEvent) => {
+              this.onTouchCanel(ev, card.id);
+            },
+            { passive: true },
+          );
 
-          card.el.addEventListener("touchmove", (ev: TouchEvent) => {
-            this.onTouchMove(ev, card.id);
-          });
+          card.el.addEventListener(
+            "touchmove",
+            (ev: TouchEvent) => {
+              this.onTouchMove(ev, card.id);
+            },
+            { passive: true },
+          );
         }
         card.el.style.bottom = "-1000px";
         card.el.style.transform = transform;
@@ -164,21 +180,37 @@ class Swiper {
             card.ctx.onClick(card.el, card.id, card.additionalData);
           });
 
-          card.el.addEventListener("touchstart", (ev: TouchEvent) => {
-            this.onTouchStart(ev);
-          });
+          card.el.addEventListener(
+            "touchstart",
+            (ev: TouchEvent) => {
+              this.onTouchStart(ev);
+            },
+            { passive: true },
+          );
 
-          card.el.addEventListener("touchend", (ev: TouchEvent) => {
-            this.onTouchEnd(ev, card.id);
-          });
+          card.el.addEventListener(
+            "touchend",
+            (ev: TouchEvent) => {
+              this.onTouchEnd(ev, card.id);
+            },
+            { passive: true },
+          );
 
-          card.el.addEventListener("touchcancel", (ev: TouchEvent) => {
-            this.onTouchCanel(ev, card.id);
-          });
+          card.el.addEventListener(
+            "touchcancel",
+            (ev: TouchEvent) => {
+              this.onTouchCanel(ev, card.id);
+            },
+            { passive: true },
+          );
 
-          card.el.addEventListener("touchmove", (ev: TouchEvent) => {
-            this.onTouchMove(ev, card.id);
-          });
+          card.el.addEventListener(
+            "touchmove",
+            (ev: TouchEvent) => {
+              this.onTouchMove(ev, card.id);
+            },
+            { passive: true },
+          );
         }
         card.el.style.bottom = bottom;
         card.el.style.transform = transform;
@@ -200,21 +232,37 @@ class Swiper {
             card.ctx.onClick(card.el, card.id, card.additionalData);
           });
 
-          card.el.addEventListener("touchstart", (ev: TouchEvent) => {
-            this.onTouchStart(ev);
-          });
+          card.el.addEventListener(
+            "touchstart",
+            (ev: TouchEvent) => {
+              this.onTouchStart(ev);
+            },
+            { passive: true },
+          );
 
-          card.el.addEventListener("touchend", (ev: TouchEvent) => {
-            this.onTouchEnd(ev, card.id);
-          });
+          card.el.addEventListener(
+            "touchend",
+            (ev: TouchEvent) => {
+              this.onTouchEnd(ev, card.id);
+            },
+            { passive: true },
+          );
 
-          card.el.addEventListener("touchcancel", (ev: TouchEvent) => {
-            this.onTouchCanel(ev, card.id);
-          });
+          card.el.addEventListener(
+            "touchcancel",
+            (ev: TouchEvent) => {
+              this.onTouchCanel(ev, card.id);
+            },
+            { passive: true },
+          );
 
-          card.el.addEventListener("touchmove", (ev: TouchEvent) => {
-            this.onTouchMove(ev, card.id);
-          });
+          card.el.addEventListener(
+            "touchmove",
+            (ev: TouchEvent) => {
+              this.onTouchMove(ev, card.id);
+            },
+            { passive: true },
+          );
         }
         card.el.style.bottom = bottom;
         card.el.style.transform = transform;
