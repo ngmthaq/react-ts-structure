@@ -100,16 +100,16 @@ const mockCards = (max: number = 10): Card[] => {
       className: "card",
       additionalData: { foo: "bar" },
       onLike: (card, id, additionalData) => {
-        console.log("LIKE", { card, id, additionalData });
+        console.warn("LIKE", { card, id, additionalData });
       },
       onDislike: (card, id, additionalData) => {
-        console.log("DISLIKE", { card, id, additionalData });
+        console.warn("DISLIKE", { card, id, additionalData });
       },
       onSkip: (card, id, additionalData) => {
-        console.log("SKIP", { card, id, additionalData });
+        console.warn("SKIP", { card, id, additionalData });
       },
       onClick: (card, id, additionalData) => {
-        console.log("CLICK", { card, id, additionalData });
+        console.warn("CLICK", { card, id, additionalData });
       },
     });
   }

@@ -1,5 +1,4 @@
-import LayersOutlinedIcon from "@mui/icons-material/LayersOutlined";
-import TableRowsRoundedIcon from "@mui/icons-material/TableRowsRounded";
+import { LayersOutlined, TableRowsRounded } from "@mui/icons-material";
 import { AppConst } from "spec/app.const";
 
 const APP_CONST: AppConst = {
@@ -19,12 +18,12 @@ const APP_CONST: AppConst = {
     swipe: {
       id: 0,
       alt: "Swipe mode",
-      Icon: LayersOutlinedIcon,
+      Icon: LayersOutlined,
     },
     scroll: {
       id: 1,
       alt: "Scroll mode",
-      Icon: TableRowsRoundedIcon,
+      Icon: TableRowsRounded,
     },
   },
 };
