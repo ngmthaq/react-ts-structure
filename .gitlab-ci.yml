@@ -1,0 +1,33 @@
+image: node:latest
+
+stages:
+  - build
+  - lint
+  - test
+
+# Job's name
+build-job:
+  # Define stage
+  stage: build
+  # What to run on the job.
+  script:
+    - npm install
+  artifacts:
+    paths:
+      - node_modules
+
+lint-job:
+  stage: lint
+  script:
+    - npm run lint
+  artifacts:
+    paths:
+      - node_modules/
+
+test-job:
+  stage: test
+  script:
+    - npm run test
+  artifacts:
+    paths:
+      - node_modules/
