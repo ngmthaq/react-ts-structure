@@ -1,2 +1,136 @@
 @import "./variables";
 @import "./mixins";
+
+html {
+    height: 100%;
+}
+
+body.light {
+    height: 100%;
+    #root {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    #swiper {
+        height: 100%;
+        position: relative;
+        touch-action: none;
+
+        & .card {
+            width: 90%;
+            height: 60vh;
+            position: absolute;
+            border-radius: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            overflow: hidden;
+            filter: drop-shadow(1px 1px 10px rgba(0, 0, 0, 0.25));
+            cursor: pointer;
+            user-select: none;
+            transition: transform linear 0.05s, bottom linear 0.25s;
+            transform-origin: center;
+            will-change: transform;
+
+            & img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: 50% 50%;
+            }
+        }
+
+        & .swiper_action_button {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: none;
+            position: fixed;
+            bottom: 64px;
+            background-color: map-get($map: $lightPalette, $key: common_white);
+
+            &.like_button {
+                right: 16px;
+            }
+
+            &.dislike_button {
+                left: 16px;
+            }
+
+            & img {
+                width: 64%;
+                height: 64%;
+                object-fit: contain;
+                filter: drop-shadow(2px 2px 20px rgba(0, 0, 0, 0.5));
+            }
+        }
+    }
+}
+
+body.dark {
+    height: 100%;
+    #root {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    #swiper {
+        height: 100%;
+        position: relative;
+        touch-action: none;
+
+        & .card {
+            width: 90%;
+            height: 60vh;
+            position: absolute;
+            border-radius: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            overflow: hidden;
+            filter: drop-shadow(1px 1px 10px rgba(0, 0, 0, 0.25));
+            cursor: pointer;
+            user-select: none;
+            transition: transform linear 0.05s, bottom linear 0.25s;
+            transform-origin: center;
+            will-change: transform;
+
+            & img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: 50% 50%;
+            }
+        }
+
+        & .swiper_action_button {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: none;
+            position: fixed;
+            bottom: 64px;
+            background-color: map-get($map: $darkPalette, $key: common_white);
+
+            &.like_button {
+                right: 16px;
+            }
+
+            &.dislike_button {
+                left: 16px;
+            }
+
+            & img {
+                width: 64%;
+                height: 64%;
+                object-fit: contain;
+                filter: drop-shadow(2px 2px 20px rgba(0, 0, 0, 0.5));
+            }
+        }
+    }
+}
+
+.hide {
+    display: none;
+}

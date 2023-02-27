@@ -1,0 +1,33 @@
+image: node:latest
+
+stages:
+  - build
+  - lint
+  - test
+
+# Job's name
+build-job:
+  # Define stage
+  stage: build
+  # What to run on the job.
+  script:
+    - yarn
+  artifacts:
+    paths:
+      - node_modules
+
+lint-job:
+  stage: lint
+  script:
+    - yarn lint
+  artifacts:
+    paths:
+      - node_modules/
+
+test-job:
+  stage: test
+  script:
+    - yarn test --passWithNoTests
+  artifacts:
+    paths:
+      - node_modules/

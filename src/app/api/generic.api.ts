@@ -18,7 +18,7 @@ abstract class GenericApi {
         ? "Asia/Ho_Chi_Minh"
         : Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    // Make an instant of axios
+    // Make an instance of axios
     this.api = axios.create();
 
     // Config axios default headers

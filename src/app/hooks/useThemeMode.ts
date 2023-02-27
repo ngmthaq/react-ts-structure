@@ -12,6 +12,7 @@ const useThemeMode = () => {
 
   useEffect(() => {
     setTheme(getCustomTheme(mode));
+    document.body.className = mode;
   }, [mode]);
 
   return theme;

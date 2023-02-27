@@ -6,6 +6,7 @@
     },
     "errors": {
       "404": "Chúng tôi không thể tìm thấy bất kỳ trang hay dữ liệu mà bạn cần!",
+      "406": "Ứng dụng chỉ có thể được khởi chạy trên trình duyệt của điện thoại",
       "500": "Oops! Đã có lỗi xảy ra, vui lòng thử lại sau."
     },
     "title": {
