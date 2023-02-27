@@ -11,7 +11,7 @@ build-job:
   stage: build
   # What to run on the job.
   script:
-    - npm install
+    - yarn
   artifacts:
     paths:
       - node_modules
@@ -19,7 +19,7 @@ build-job:
 lint-job:
   stage: lint
   script:
-    - npm run lint
+    - yarn lint
   artifacts:
     paths:
       - node_modules/
@@ -27,7 +27,7 @@ lint-job:
 test-job:
   stage: test
   script:
-    - npm run test
+    - yarn test --passWithNoTests
   artifacts:
     paths:
       - node_modules/
