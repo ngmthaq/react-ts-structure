@@ -2,7 +2,7 @@ import React, { useMemo, useEffect, useState } from "react";
 import { Box, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import APP_CONST from "app/const/app.const";
-import Swiper from "app/swiper";
+import Swiper from "app/plugins/swiper.plugin";
 import { getRandomInRange } from "app/utils";
 import MainLayout from "app/layouts/MainLayout";
 import { Card } from "spec/swiper";
