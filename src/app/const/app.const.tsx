@@ -5,15 +5,19 @@ const APP_CONST: AppConst = {
   header: {
     height: 52,
   },
+
   footer: {
     height: 52,
   },
+
   nav: {
     height: 52,
   },
+
   notification: {
     timeout: 6000,
   },
+
   viewModes: {
     swipe: {
       id: 0,
@@ -25,6 +29,11 @@ const APP_CONST: AppConst = {
       alt: "Scroll mode",
       Icon: TableRowsRounded,
     },
+  },
+
+  jobModes: {
+    recommended: "recommended",
+    filter: "filter",
   },
 };
 

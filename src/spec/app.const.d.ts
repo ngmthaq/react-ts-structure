@@ -6,6 +6,7 @@ export interface AppConst {
   nav: FooterAppConst;
   viewModes: ViewModeConst;
   notification: NotificationConst;
+  jobModes: JobModes;
 }
 
 export interface HeaderAppConst {
@@ -33,4 +34,9 @@ export interface ViewMode {
 export interface ViewModeConst {
   swipe: ViewMode;
   scroll: ViewMode;
+}
+
+export interface JobModes {
+  recommended: string;
+  filter: string;
 }

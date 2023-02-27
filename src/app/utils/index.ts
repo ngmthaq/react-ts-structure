@@ -112,3 +112,14 @@ export const convertHex2Rgba = (hex: string, opacity: number = 1): string => {
 
   throw new Error("Cannot convert hex to rgb");
 };
+
+export const getPieOfHours = () => {
+  let hours = [];
+  for (let i = 0; i <= 23; i++) {
+    let start = i < 10 ? "0" + i : i;
+    hours.push(start + ":00");
+    hours.push(start + ":30");
+  }
+
+  return hours;
+};
