@@ -8,6 +8,9 @@ export interface UrlSearchParamState {
 export interface RouteObjectConfig {
   login: CustomRouteObject;
   homepage: CustomRouteObject;
+  jobs: CustomRouteObject;
+  setting: CustomRouteObject;
+  history: CustomRouteObject;
 }
 
 export type CustomRouteObject = RouteObject & {

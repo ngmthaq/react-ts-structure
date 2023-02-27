@@ -16,12 +16,12 @@ const Footer: React.FC<Props> = () => {
           <Home />
         </IconButton>
       </Link>
-      <Link to={PATH_CONST.homepage.path}>
+      <Link to={PATH_CONST.setting.path}>
         <IconButton>
           <TuneRounded />
         </IconButton>
       </Link>
-      <Link to={PATH_CONST.homepage.path}>
+      <Link to={PATH_CONST.history.path}>
         <IconButton>
           <History />
         </IconButton>
