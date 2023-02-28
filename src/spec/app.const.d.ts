@@ -7,6 +7,7 @@ export interface AppConst {
   viewModes: ViewModeConst;
   notification: NotificationConst;
   jobModes: JobModes;
+  customEvents: CustomEvents;
 }
 
 export interface HeaderAppConst {
@@ -39,4 +40,8 @@ export interface ViewModeConst {
 export interface JobModes {
   recommended: string;
   filter: string;
+}
+
+export interface CustomEvents {
+  optionButtonChanged: string;
 }

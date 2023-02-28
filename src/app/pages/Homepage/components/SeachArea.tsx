@@ -1,9 +1,13 @@
 import React, { useMemo } from "react";
 import { Box, FormControl, InputLabel, MenuItem, Select, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import HorizontalCard from "app/components/HorizontalCard";
-import ScrollContainer from "app/components/ScrollContainer";
 import { getPieOfHours } from "app/utils";
+import OptionButton from "app/components/OptionButton";
+import { Link } from "react-router-dom";
+import FORMAT_CONST from "app/const/format.const";
+import PATH_CONST from "app/const/path.const";
+import APP_CONST from "app/const/app.const";
+import clsx from "clsx";
 
 const SeachArea: React.FC<Props> = () => {
   const classes = useStyles();
@@ -51,31 +55,21 @@ const SeachArea: React.FC<Props> = () => {
             </Select>
           </FormControl>
         </Box>
+        <Typography className={classes.title}>Another title of search</Typography>
         <Box className={classes.formRow}>
-          <FormControl fullWidth className={classes.formControl} variant="filled" size="small">
-            <InputLabel variant="filled" htmlFor="uncontrolled-native">
-              Age
-            </InputLabel>
-            <Select defaultValue={JAPAN_PROVINCES[0].code}>
-              {JAPAN_PROVINCES.map(province => (
-                <MenuItem value={province.code} key={province.code}>
-                  {province.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl fullWidth className={classes.formControl} variant="filled" size="small">
-            <InputLabel variant="filled" htmlFor="uncontrolled-native">
-              Age
-            </InputLabel>
-            <Select defaultValue={JAPAN_PROVINCES[0].code}>
-              {JAPAN_PROVINCES.map(province => (
-                <MenuItem value={province.code} key={province.code}>
-                  {province.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <OptionButton id="fulltime" name="job_type" title="Full Time" type="checkbox" value="fulltime" />
+          <OptionButton id="parttime" name="job_type" title="Part Time" type="checkbox" value="parttime" />
+        </Box>
+        <Box className={classes.formRow}>
+          <Link className={clsx(classes.button, classes.outlinedButton)} to={PATH_CONST.setting.path}>
+            Setting
+          </Link>
+          <Link
+            className={classes.button}
+            to={FORMAT_CONST.jobPath.replace(":path", PATH_CONST.jobs.path).replace(":mode", APP_CONST.jobModes.filter)}
+          >
+            Search
+          </Link>
         </Box>
       </Box>
     </Box>
@@ -283,6 +277,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: {
     fontWeight: 600,
     paddingBottom: 8,
+    width: "100%",
   },
 
   formContainer: {
@@ -299,6 +294,23 @@ const useStyles = makeStyles((theme: Theme) => ({
 
   formControl: {
     maxWidth: "30vw",
+  },
+
+  button: {
+    display: "inline-block",
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.grey[50],
+    textDecoration: "none",
+    textAlign: "center",
+    borderRadius: 16,
+    minWidth: 160,
+    padding: "4px 8px",
+  },
+
+  outlinedButton: {
+    backgroundColor: theme.palette.grey[50],
+    border: "1px solid " + theme.palette.primary.main,
+    color: theme.palette.primary.main,
   },
 }));
 

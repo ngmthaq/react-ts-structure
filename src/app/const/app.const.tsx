@@ -35,6 +35,10 @@ const APP_CONST: AppConst = {
     recommended: "recommended",
     filter: "filter",
   },
+
+  customEvents: {
+    optionButtonChanged: "optionButtonChanged",
+  },
 };
 
 export default APP_CONST;

@@ -125,10 +125,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.grey[50],
     textDecoration: "none",
     textAlign: "center",
-    borderRadius: 8,
+    borderRadius: 16,
     minWidth: 120,
     marginTop: 8,
-    padding: 8,
+    padding: "4px 8px",
   },
 }));
 
