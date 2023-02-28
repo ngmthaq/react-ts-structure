@@ -1,12 +1,12 @@
 import React from "react";
 import { RouterProvider } from "react-router-dom";
 import { CssBaseline, StyledEngineProvider, ThemeProvider } from "@mui/material";
-import router from "app/router";
-import useThemeMode from "app/hooks/useThemeMode";
-import { checkMobileAgent } from "app/utils";
-import Desktop from "app/pages/Desktop";
-import DefaultLoading from "app/components/DefaultLoading";
-import DefaultNotification from "app/components/DefaultNotification";
+import router from "router";
+import useThemeMode from "hooks/useThemeMode";
+import { checkMobileAgent } from "utils";
+import Desktop from "pages/Desktop";
+import DefaultLoading from "components/DefaultLoading";
+import DefaultNotification from "components/DefaultNotification";
 
 const App: React.FC<Props> = () => {
   const theme = useThemeMode();

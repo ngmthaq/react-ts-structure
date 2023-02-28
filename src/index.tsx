@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider as ReduxProvider } from "react-redux";
 import { I18nextProvider } from "react-i18next";
-import i18n from "app/locales";
-import store from "app/store";
+import i18n from "locales";
+import store from "store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import "./app/theme/scss/style.scss";
+import "./theme/scss/style.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
