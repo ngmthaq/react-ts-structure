@@ -1,8 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider as ReduxProvider } from "react-redux";
+import { I18nextProvider } from "react-i18next";
 import App from "./App";
 import store from "./store";
+import i18next from "plugins/locales";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import "assets/scss/index.scss";
@@ -11,9 +13,11 @@ const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 
 const Component: React.FC<{}> = () => {
   return (
-    <ReduxProvider store={store}>
-      <App />
-    </ReduxProvider>
+    <I18nextProvider i18n={i18next}>
+      <ReduxProvider store={store}>
+        <App />
+      </ReduxProvider>
+    </I18nextProvider>
   );
 };
 

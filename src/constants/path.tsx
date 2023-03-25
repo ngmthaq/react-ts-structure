@@ -3,6 +3,6 @@ import { RouteObjectDefinition } from "types/core/constants";
 
 export const PATH_HOME: RouteObjectDefinition = {
   path: "/",
-  title: "Home",
+  title: "title.Home",
   element: <Home />,
 };
