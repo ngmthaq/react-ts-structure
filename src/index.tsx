@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Provider as ReduxProvider } from "react-redux";
 import App from "./App";
+import store from "./store";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import "assets/scss/index.scss";
@@ -8,7 +10,11 @@ import "assets/scss/index.scss";
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 const Component: React.FC<{}> = () => {
-  return <App />;
+  return (
+    <ReduxProvider store={store}>
+      <App />
+    </ReduxProvider>
+  );
 };
 
 root.render(

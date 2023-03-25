@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import * as routes from "constants/path";
-import withTitle from "plugins/hoc/withTitle";
+import { withTitle } from "plugins/hoc";
 import Error from "features/Error";
 
 const router = createBrowserRouter(
