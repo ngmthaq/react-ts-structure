@@ -1,0 +1,14 @@
+@import "../../assets/scss/variable";
+@import "../../assets/scss/mixins";
+
+.cont {
+    position: fixed;
+    bottom: 0px;
+    right: 8px;
+    width: 100%;
+    max-width: 30vw;
+
+    & .alert {
+        width: 100%;
+    }
+}

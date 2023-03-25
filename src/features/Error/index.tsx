@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouteError } from "react-router-dom";
-import st from "./Error.module.scss";
+import styles from "./Error.module.scss";
 
 const Error: React.FC<{}> = () => {
   const error: any = useRouteError();
@@ -8,9 +8,9 @@ const Error: React.FC<{}> = () => {
   console.error(error);
 
   return (
-    <div className={st.cont}>
-      <h1 className={st.title}>{error.status}</h1>
-      <p className={st.paragraph}>{error.statusText}</p>
+    <div className={styles.cont}>
+      <h1 className={styles.title}>{error.status}</h1>
+      <p className={styles.paragraph}>{error.statusText}</p>
     </div>
   );
 };

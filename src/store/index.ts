@@ -1,10 +1,11 @@
 import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CommonState } from "types/reducer/common";
+import { CommonState, Notification } from "types/reducer/common";
 import HomeReducer from "features/Home/Home.reducer";
 
 export const commonState: CommonState = {
   isLoading: false,
   isCallingApi: false,
+  notification: null,
 };
 
 export const commonSlice = createSlice({
@@ -16,6 +17,9 @@ export const commonSlice = createSlice({
     },
     setIsCallingApi: (state: CommonState, actions: PayloadAction<boolean>) => {
       state.isCallingApi = actions.payload;
+    },
+    setNotification: (state: CommonState, actions: PayloadAction<Notification>) => {
+      state.notification = actions.payload;
     },
   },
 });

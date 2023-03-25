@@ -9,9 +9,11 @@ const App: FC<{}> = () => {
     <Fragment>
       <RouterProvider router={router} />
       <Loading />
-      <Notifications />
+      <Notifications autoClose={AUTO_CLOSE_NOTIFICATION_TIME} />
     </Fragment>
   );
 };
 
 export default App;
+
+export const AUTO_CLOSE_NOTIFICATION_TIME = 6000;
