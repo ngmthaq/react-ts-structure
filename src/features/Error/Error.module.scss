@@ -1,0 +1,23 @@
+@import "../../assets/scss/variable";
+@import "../../assets/scss/mixins";
+
+.cont {
+    background: #292d3e;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    & .paragraph {
+        color: $gray;
+        font-size: 24px;
+    }
+
+    & .title {
+        font-size: 64px;
+        color: $gray;
+        font-style: italic;
+    }
+}
