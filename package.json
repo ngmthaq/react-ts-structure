@@ -1,6 +1,6 @@
 {
   "name": "react-ts-pwa",
-  "version": "0.1.0",
+  "version": "0.0.2.4",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
@@ -57,11 +57,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build:linux": "GENERATE_SOURCEMAP=false react-scripts build",
-    "build:windows": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
+    "build:win": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "npx eslint --ext .tsx,.ts ./src",
-    "lint:fix": "npx eslint --fix --ext .tsx,.ts ./src"
+    "lint:fix": "npx prettier --config ./.prettierrc -w . && npx eslint --fix --ext .tsx,.ts ./src"
   },
   "eslintConfig": {
     "extends": [

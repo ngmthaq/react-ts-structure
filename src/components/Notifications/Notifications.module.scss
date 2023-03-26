@@ -2,14 +2,14 @@
 @import "../../assets/scss/mixins";
 
 .cont {
-    position: fixed;
-    bottom: 0px;
-    right: 8px;
-    width: 100%;
-    max-width: 30vw;
-    z-index: $z-index-notifications;
+  position: fixed;
+  bottom: 0px;
+  right: 8px;
+  width: 100%;
+  max-width: 30vw;
+  z-index: $z-index-notifications;
 
-    & .alert {
-        width: 100%;
-    }
+  & .alert {
+    width: 100%;
+  }
 }
