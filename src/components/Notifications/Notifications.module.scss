@@ -7,6 +7,7 @@
     right: 8px;
     width: 100%;
     max-width: 30vw;
+    z-index: $z-index-notifications;
 
     & .alert {
         width: 100%;

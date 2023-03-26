@@ -3,7 +3,7 @@ import { CommonState, Notification } from "types/reducer/common";
 import HomeReducer from "features/Home/Home.reducer";
 
 export const commonState: CommonState = {
-  isLoading: false,
+  isLoading: true,
   isCallingApi: false,
   notification: null,
 };
