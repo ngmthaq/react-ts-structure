@@ -52,6 +52,18 @@ async function registerValidSW(serviceWorkerPath: string, config?: Config) {
       const serviceWorker = registration.installing;
       if (serviceWorker === null) return;
       serviceWorker.addEventListener("statechange", () => {
+        if (serviceWorker.state === "activating") {
+          console.info("Activating service worker");
+        }
+
+        if (serviceWorker.state === "activated") {
+          console.info("Service worker activated");
+        }
+
+        if (serviceWorker.state === "installing") {
+          console.info("Installing service worker");
+        }
+
         if (serviceWorker.state === "installed") {
           if (navigator.serviceWorker.controller) {
             // At this point, the updated precached content has been fetched,
@@ -74,6 +86,14 @@ async function registerValidSW(serviceWorkerPath: string, config?: Config) {
               config.onSuccess(registration);
             }
           }
+        }
+
+        if (serviceWorker.state === "parsed") {
+          console.info("Service worker parsed");
+        }
+
+        if (serviceWorker.state === "redundant") {
+          console.info("Service worker redundant");
         }
       });
     });
