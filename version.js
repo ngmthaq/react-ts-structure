@@ -24,7 +24,7 @@ if (variant) {
   }
   let newVersion = `${main}.${stage}.${test}.${dev}`;
   let newPkg = { ...pkg, version: newVersion };
-  let newManifest = { ...manifest, start_url: "./?v=" + newVersion };
+  let newManifest = { ...manifest, start_url: "/?v=" + newVersion };
   fs.writeFileSync("./package.json", JSON.stringify(newPkg));
   fs.writeFileSync("./public/manifest.json", JSON.stringify(newManifest));
 }
