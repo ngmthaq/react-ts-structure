@@ -1,3 +1,7 @@
 set -e
 node version.js $1
-npm run lint:fix
+
+if [ $1 ]
+then
+    npm run lint:fix
+fi

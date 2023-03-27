@@ -27,4 +27,6 @@ if (variant) {
   let newManifest = { ...manifest, start_url: "/?v=" + newVersion };
   fs.writeFileSync("./package.json", JSON.stringify(newPkg));
   fs.writeFileSync("./public/manifest.json", JSON.stringify(newManifest));
+} else {
+  console.log("\n> Please provide version variant: 'main', 'stage', 'test', 'dev'.");
 }
