@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { trans } from "helpers/common";
+import { trans } from "helpers/common.helper";
 
 const withTitle = ({ children, title }: { children: ReactNode; title: string }) => {
   document.title = trans(title);

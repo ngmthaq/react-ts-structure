@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import { Alert } from "react-bootstrap";
 import { Notification } from "types/reducer/common";
 import { useAppSelector } from "plugins/hooks";
-import { deepClone } from "helpers/common";
+import { deepClone } from "helpers/common.helper";
 import styles from "./Notifications.module.scss";
 
 const Notifications: FC<{ autoClose: number }> = ({ autoClose }) => {

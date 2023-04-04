@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import * as routes from "constants/path";
+import * as routes from "const/path.const";
 import { withTitle } from "plugins/hoc";
 import Error from "features/Error";
 

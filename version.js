@@ -3,30 +3,30 @@
 let fs = require("fs");
 let pkg = require("./package.json");
 let manifest = require("./public/manifest.json");
-let [main, stage, test, dev] = pkg.version.split(".");
-let variants = ["main", "stage", "test", "dev"];
+let [major, minor, build, revision] = pkg.version.split(".");
+let variants = ["major", "minor", "build", "revision"];
 let argv = process.argv[2] || null;
 let variant = variants.includes(argv) ? argv : null;
 
 if (variant) {
-  if (variant === "main") {
-    main = parseInt(main);
-    main = main + 1;
-  } else if (variant === "stage") {
-    stage = parseInt(stage);
-    stage = stage + 1;
-  } else if (variant === "test") {
-    test = parseInt(test);
-    test = test + 1;
+  if (variant === "major") {
+    major = parseInt(major);
+    major = major + 1;
+  } else if (variant === "minor") {
+    minor = parseInt(minor);
+    minor = minor + 1;
+  } else if (variant === "build") {
+    build = parseInt(build);
+    build = build + 1;
   } else {
-    dev = parseInt(dev);
-    dev = dev + 1;
+    revision = parseInt(revision);
+    revision = revision + 1;
   }
-  let newVersion = `${main}.${stage}.${test}.${dev}`;
+  let newVersion = `${major}.${minor}.${build}.${revision}`;
   let newPkg = { ...pkg, version: newVersion };
   let newManifest = { ...manifest, start_url: "/?v=" + newVersion };
   fs.writeFileSync("./package.json", JSON.stringify(newPkg));
   fs.writeFileSync("./public/manifest.json", JSON.stringify(newManifest));
 } else {
-  console.log("\n> Please provide version variant: 'main', 'stage', 'test', 'dev'.");
+  console.log("\n> Please provide version variant: 'major', 'minor', 'build', 'revision'.");
 }

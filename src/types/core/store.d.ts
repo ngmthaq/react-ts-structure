@@ -1,4 +1,4 @@
-import store from "store";
+import store from "plugins/store";
 
 export type RootState = ReturnType<typeof store.getState>;
 

@@ -1,7 +1,7 @@
-import { DEFAULT_NS } from "constants/locales";
+import { LOCALE_DEFAULT_NS } from "const/locale.const";
 import i18next from "plugins/locales";
 
-export const trans = (key: string, ns: string = DEFAULT_NS): string => {
+export const trans = (key: string, ns: string = LOCALE_DEFAULT_NS): string => {
   return i18next.t(key, { ns: ns });
 };
 

@@ -1,4 +1,4 @@
-import ApiConfigs from "./configs";
+import ApiConfigs from "./configs.api";
 
 class GuestApi extends ApiConfigs {
   //
