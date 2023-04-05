@@ -48,3 +48,8 @@ export const convertSearchParamsToSearchString = (searchParams: SearchParams = {
   let string = new URLSearchParams(filterSearchParams).toString();
   return string === "" ? "" : "?" + string;
 };
+
+export const getSearchParam = (key: string) => {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(key);
+};
