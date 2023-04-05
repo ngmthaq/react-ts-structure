@@ -16,4 +16,5 @@ export type AvailableLng = {
 // PATH.CONST
 export type RouteObjectDefinition = RouteObject & {
   title: string;
+  path: string;
 };

@@ -1,4 +1,5 @@
 import { LOCALE_DEFAULT_NS } from "const/locale.const";
+import { SearchParams } from "plugins/hooks/useAppSearchParams";
 import i18next from "plugins/locales";
 
 export const trans = (key: string, ns: string = LOCALE_DEFAULT_NS): string => {
@@ -32,4 +33,18 @@ export const convertHex2Rgba = (hex: string, opacity: number = 1): string => {
     return "rgba(" + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(",") + ", " + opacity + ")";
   }
   throw new Error("Cannot convert hex to rgb");
+};
+
+export const convertSearchStringToSearchParams = (searchString: string = window.location.search): SearchParams => {
+  const urlParams = new URLSearchParams(searchString);
+  return Object.fromEntries(urlParams);
+};
+
+export const convertSearchParamsToSearchString = (searchParams: SearchParams = {}) => {
+  let filterSearchParams: any = {};
+  Object.entries(searchParams).forEach(([key, value]) => {
+    if (value !== null && value !== undefined) filterSearchParams[key] = value;
+  });
+  let string = new URLSearchParams(filterSearchParams).toString();
+  return string === "" ? "" : "?" + string;
 };
