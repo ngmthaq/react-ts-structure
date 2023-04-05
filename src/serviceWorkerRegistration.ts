@@ -1,6 +1,8 @@
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
+import PWA from "plugins/pwa";
+
 // This lets the app load faster on subsequent visits in production, and gives
 // it offline capabilities. However, it also means that developers (and users)
 // will only see deployed updates on subsequent visits to a page, after all the
@@ -48,6 +50,22 @@ export async function register(config?: Config) {
 async function registerValidSW(serviceWorkerPath: string, config?: Config) {
   try {
     const registration = await navigator.serviceWorker.register(serviceWorkerPath);
+
+    Object.entries(PWA.customEvents).forEach(([event, callback]) => {
+      window.addEventListener(event, async (e: any) => {
+        await callback(registration, e.details);
+      });
+    });
+
+    Object.keys(PWA.syncEvents).forEach(event => {
+      window.addEventListener(event, () => {
+        if ("sync" in registration) {
+          const sync: any = registration.sync;
+          sync.register(event);
+        }
+      });
+    });
+
     registration.addEventListener("updatefound", () => {
       const serviceWorker = registration.installing;
       if (serviceWorker === null) return;
