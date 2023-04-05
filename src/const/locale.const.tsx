@@ -1,4 +1,4 @@
-import { AvailableLng } from "types/core/const";
+import { AvailableLng } from "types/const/locale";
 
 export const LOCALE_VI: AvailableLng = { alias: "vi" };
 

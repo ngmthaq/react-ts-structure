@@ -1,6 +1,5 @@
-import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CommonState, Notification } from "types/reducer/common";
-import HomeReducer from "features/Home/Home.reducer";
 
 export const commonState: CommonState = {
   isLoading: false,
@@ -26,15 +25,4 @@ export const commonSlice = createSlice({
 
 export const CommonActions = commonSlice.actions;
 
-const store = configureStore({
-  reducer: {
-    common: commonSlice.reducer,
-    home: HomeReducer,
-  },
-});
-
-export default store;
-
-export type RootState = ReturnType<typeof store.getState>;
-
-export type AppDispatch = typeof store.dispatch;
+export default commonSlice.reducer;
