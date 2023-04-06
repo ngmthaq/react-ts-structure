@@ -38,10 +38,12 @@ root.render(
 if (process.env.REACT_APP_MODE === "PWA") {
   serviceWorkerRegistration.register({
     onSuccess(registration) {
-      PWA.onSuccess(registration);
+      const pwa = new PWA(registration);
+      pwa.onSuccess(registration);
     },
     onUpdate(registration) {
-      PWA.onUpdate(registration);
+      const pwa = new PWA(registration);
+      pwa.onUpdate(registration);
     },
   });
 } else if (process.env.REACT_APP_MODE === "WEB") {

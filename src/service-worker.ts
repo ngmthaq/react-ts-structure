@@ -85,10 +85,12 @@ self.addEventListener("message", event => {
 });
 
 // Any other custom service worker logic can go here.
+const pwa = new PWA(self.registration);
+
 self.addEventListener("fetch", event => {});
 
 self.addEventListener("sync", (event: any) => {
-  Object.entries(PWA.syncEvents).forEach(([tag, callback]) => {
+  Object.entries(pwa.syncEvents).forEach(([tag, callback]) => {
     if (event.tag === "SYNC_" + tag) {
       event.waitUntil(
         (async () => {
@@ -104,7 +106,7 @@ self.addEventListener("sync", (event: any) => {
 });
 
 self.addEventListener("periodicsync", (event: any) => {
-  Object.entries(PWA.periodSyncEvents).forEach(([tag, callback]) => {
+  Object.entries(pwa.periodSyncEvents).forEach(([tag, callback]) => {
     if (event.tag === "PERIOD_SYNC_" + tag) {
       event.waitUntil(
         (async () => {

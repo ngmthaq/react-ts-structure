@@ -51,14 +51,17 @@ export async function register(config?: Config) {
 async function registerValidSW(serviceWorkerPath: string, config?: Config) {
   try {
     const registration = await navigator.serviceWorker.register(serviceWorkerPath);
+    const pwa = new PWA(registration);
 
-    Object.entries(PWA.customEvents).forEach(([event, callback]) => {
+    Object.entries(pwa.customEvents).forEach(([event, callback]) => {
+      console.info("Register custom event", event);
       window.addEventListener(event, async (e: any) => {
         await callback(registration, e.details);
       });
     });
 
-    Object.entries(PWA.syncEvents).forEach(([event, callback]) => {
+    Object.entries(pwa.syncEvents).forEach(([event, callback]) => {
+      console.info("Register sync event", event);
       window.addEventListener(event, async (e: any) => {
         try {
           if ("sync" in registration) {
@@ -78,9 +81,10 @@ async function registerValidSW(serviceWorkerPath: string, config?: Config) {
       });
     });
 
-    Object.entries(PWA.periodSyncEvents).forEach(async ([event, callback]) => {
+    Object.entries(pwa.periodSyncEvents).forEach(async ([event, callback]) => {
       try {
         if ("periodicsync" in registration) {
+          console.info("Register periodic sync event", event);
           let periodicsync: any = registration.periodicsync;
           periodicsync.register("PERIOD_SYNC_" + event, { minInterval: callback.minInterval });
         } else {
