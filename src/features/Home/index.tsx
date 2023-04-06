@@ -1,5 +1,5 @@
 import React from "react";
-import { usePWA } from "plugins/pwa";
+import { usePWA } from "plugins/hooks";
 
 const Home: React.FC<{}> = () => {
   const { registration } = usePWA();

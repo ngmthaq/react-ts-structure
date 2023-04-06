@@ -1,11 +1,10 @@
 import { FC, useState, useEffect } from "react";
 import { Alert } from "react-bootstrap";
+import { EVENT_REQUEST_NOTI_PERMISSION } from "const/events.const";
 import { Notification } from "types/reducer/common";
-import { usePWA } from "plugins/pwa";
-import { useAppSelector } from "plugins/hooks";
+import { useAppSelector, usePWA } from "plugins/hooks";
 import { deepClone } from "helpers/common.helper";
 import styles from "./Notifications.module.scss";
-import { EVENT_REQUEST_NOTI_PERMISSION } from "const/events.const";
 
 const Notifications: FC<{ autoClose: number }> = ({ autoClose }) => {
   const { dispatchPWAEvent } = usePWA();
