@@ -5,11 +5,10 @@ import { usePWA } from "plugins/pwa";
 import { useAppSelector } from "plugins/hooks";
 import { deepClone } from "helpers/common.helper";
 import styles from "./Notifications.module.scss";
+import { EVENT_REQUEST_NOTI_PERMISSION } from "const/events.const";
 
 const Notifications: FC<{ autoClose: number }> = ({ autoClose }) => {
-  const { pwa } = usePWA();
-
-  console.info(pwa);
+  const { dispatchPWAEvent } = usePWA();
 
   const notification = useAppSelector(state => state.common.notification);
 
@@ -46,6 +45,10 @@ const Notifications: FC<{ autoClose: number }> = ({ autoClose }) => {
       }, autoClose);
     });
   }, [notifications, autoClose]);
+
+  useEffect(() => {
+    dispatchPWAEvent(EVENT_REQUEST_NOTI_PERMISSION);
+  }, []);
 
   return (
     <div className={styles.cont}>

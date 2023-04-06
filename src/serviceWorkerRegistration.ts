@@ -96,7 +96,6 @@ async function registerValidSW(serviceWorkerPath: string, config?: Config) {
       }
     });
 
-    console.info("Dispatch event", ServiceWorkerActiveEvent);
     window.dispatchEvent(new Event(ServiceWorkerActiveEvent));
 
     registration.addEventListener("updatefound", () => {

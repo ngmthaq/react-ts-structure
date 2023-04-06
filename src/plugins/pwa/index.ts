@@ -16,7 +16,6 @@ export default class PWA {
 
   public emit<T>(event: string, data: T) {
     const customEvent = new CustomEvent<T>(event, { detail: data });
-    console.info("Dispatch event", customEvent);
     window.dispatchEvent(customEvent);
   }
 
@@ -36,13 +35,12 @@ export const usePWA = () => {
   const [registration, setRegistration] = useState<ServiceWorkerRegistration | null>(null);
   const [events, setEvents] = useState<Array<{ eventName: string; data: any }>>([]);
 
-  function dispatch<T>(eventName: string, data: T) {
+  function dispatchPWAEvent<T>(eventName: string, data?: T) {
     setEvents(state => [...state, { eventName, data }]);
   }
 
   useEffect(() => {
     const onSWActive = async () => {
-      console.info("usePWA trigger", ServiceWorkerActiveEvent);
       const reg = await navigator.serviceWorker.ready;
       setPWA(new PWA(reg));
       setRegistration(reg);
@@ -67,7 +65,7 @@ export const usePWA = () => {
     }
   }, [registration, pwa, events, setEvents]);
 
-  return { pwa, registration, dispatch };
+  return { pwa, registration, dispatchPWAEvent };
 };
 
 export type PWACustomEvents = {
