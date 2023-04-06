@@ -1,11 +1,16 @@
-import React, { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect } from "react";
 import { Alert } from "react-bootstrap";
 import { Notification } from "types/reducer/common";
+import { usePWA } from "plugins/pwa";
 import { useAppSelector } from "plugins/hooks";
 import { deepClone } from "helpers/common.helper";
 import styles from "./Notifications.module.scss";
 
 const Notifications: FC<{ autoClose: number }> = ({ autoClose }) => {
+  const { pwa } = usePWA();
+
+  console.info(pwa);
+
   const notification = useAppSelector(state => state.common.notification);
 
   const [notifications, setNotifications] = useState<Notification[]>([]);

@@ -1,8 +1,8 @@
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
+import PWA, { ServiceWorkerActiveEvent } from "plugins/pwa";
 import { getLocalForage, setLocalForage } from "helpers/storage.helper";
-import PWA from "plugins/pwa";
 
 // This lets the app load faster on subsequent visits in production, and gives
 // it offline capabilities. However, it also means that developers (and users)
@@ -95,6 +95,8 @@ async function registerValidSW(serviceWorkerPath: string, config?: Config) {
         console.info(error.message);
       }
     });
+
+    window.dispatchEvent(new Event(ServiceWorkerActiveEvent));
 
     registration.addEventListener("updatefound", () => {
       const serviceWorker = registration.installing;
