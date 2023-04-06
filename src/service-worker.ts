@@ -8,6 +8,8 @@
 // You can also remove this file if you'd prefer not to use a
 // service worker, and the Workbox build step will be skipped.
 
+import PWA from "plugins/pwa";
+import { getLocalForage, setLocalForage } from "helpers/storage.helper";
 import { clientsClaim } from "workbox-core";
 import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
@@ -86,6 +88,17 @@ self.addEventListener("message", event => {
 self.addEventListener("fetch", event => {});
 
 self.addEventListener("sync", (event: any) => {
-  if (event.tag === "a") {
-  }
+  Object.entries(PWA.syncEvents).forEach(([tag, callback]) => {
+    if (event.tag === "SYNC_" + tag) {
+      event.waitUntil(
+        (async () => {
+          let localForageData = await getLocalForage<Array<any>>("SYNC_" + tag);
+          let data: any = localForageData?.shift() || null;
+          if (!localForageData) localForageData = [];
+          await setLocalForage<Array<any>>("SYNC_" + tag, localForageData);
+          await callback.onSupported(self, event, data);
+        })(),
+      );
+    }
+  });
 });

@@ -6,7 +6,7 @@ export default class PWA {
   public static customEvents: PWACustomEvents = customEvents;
   public static syncEvents: PWASyncEvents = syncEvents;
 
-  public static dispatchCustomEvent<T>(event: string, data: T) {
+  public static emit<T>(event: string, data: T) {
     const customEvent = new CustomEvent<T>(event, { detail: data });
     window.dispatchEvent(customEvent);
   }
@@ -25,11 +25,17 @@ export type PWACustomEvents = {
 };
 
 export type PWASyncEvents = {
-  [k: string]: (registration: ServiceWorkerRegistration, data: any) => Promise<void>;
+  [k: string]: {
+    onSupported: (self: ServiceWorkerGlobalScope, syncEvent: any, data: any) => Promise<void>;
+    onNotSupported: (registration: ServiceWorkerRegistration, data: any) => Promise<void>;
+  };
 };
 
-export type PWAPeriosSyncEvent = {
-  [k: string]: (registration: ServiceWorkerRegistration, data: any) => Promise<void>;
+export type PWAPeriodSyncEvent = {
+  [k: string]: {
+    onSupported: (self: ServiceWorkerGlobalScope, syncEvent: any, data: any) => Promise<void>;
+    onNotSupported: (registration: ServiceWorkerRegistration, data: any) => Promise<void>;
+  };
 };
 
 export type PWAEvents = {

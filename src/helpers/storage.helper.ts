@@ -1,30 +1,32 @@
 import Cookies from "js-cookie";
 import localforage from "localforage";
 
-export const setCookies = (key: string, value: any, day: number = 0, options: Cookies.CookieAttributes = {}): void => {
-  if (typeof value === "boolean") value = value === true ? 1 : 0;
-  Cookies.set(key, JSON.stringify(value), { ...options, expires: day });
-};
+export function setCookies<T>(key: string, value: T, day: number = 0, options: Cookies.CookieAttributes = {}): void {
+  let data: any = value;
+  if (typeof value === "boolean") data = value === true ? 1 : 0;
+  Cookies.set(key, JSON.stringify(data), { ...options, expires: day });
+}
 
-export const getCookies = (key: string): any => {
-  const value = Cookies.get(key);
+export function getCookies<T>(key: string): T | null {
+  let value = Cookies.get(key);
   return value ? JSON.parse(value) : null;
-};
+}
 
-export const removeCookies = (key: string, options: Cookies.CookieAttributes = {}): void => {
+export function removeCookies(key: string, options: Cookies.CookieAttributes = {}): void {
   Cookies.remove(key, options);
-};
+}
 
-export const setLocalForage = async (key: string, value: any, day: number = 0): Promise<void> => {
-  if (typeof value === "boolean") value = value === true ? 1 : 0;
-  localforage.setItem(key, JSON.stringify(value));
-};
+export async function setLocalForage<T>(key: string, value: T, day: number = 0): Promise<void> {
+  let data: any = value;
+  if (typeof value === "boolean") data = value === true ? 1 : 0;
+  localforage.setItem(key, data);
+}
 
-export const getLocalForage = async (key: string): Promise<any> => {
-  const value: any = await localforage.getItem(key);
-  return value ? JSON.parse(value) : null;
-};
+export async function getLocalForage<T>(key: string): Promise<T | null> {
+  let value: T | null | undefined = await localforage.getItem<T>(key);
+  return value || null;
+}
 
-export const removeLocalForage = async (key: string): Promise<void> => {
+export async function removeLocalForage(key: string): Promise<void> {
   localforage.removeItem(key);
-};
+}
