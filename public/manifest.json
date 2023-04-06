@@ -7,10 +7,10 @@
     { "src": "logo192.png", "type": "image/png", "sizes": "192x192" },
     { "src": "logo512.png", "type": "image/png", "sizes": "512x512" }
   ],
-  "start_url": "/?v=0.0.2.9",
+  "start_url": "/?v=0.0.2.13",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff",
-  "version": "0.0.2.9",
-  "version_name": "0.0.2.9"
+  "version": "0.0.2.13",
+  "version_name": "0.0.2.13"
 }

@@ -156,11 +156,9 @@ self.addEventListener("activate", event => {
     (async caches => {
       self.clients.claim();
       if (caches) {
+        await self.clients.claim();
         const keys = await caches.keys();
-        return keys.map(async key => {
-          if (!whiteList.includes(key)) return caches.delete(key);
-          return true;
-        });
+        keys.filter(key => !whiteList.includes(key)).forEach(key => caches.delete(key));
       }
 
       return [];
