@@ -98,7 +98,15 @@ self.addEventListener("fetch", event => {
           const responseClone = response.clone();
           const cache = await caches.open("response-cache-storage-v" + process.env.REACT_APP_VERSION);
           if (cachedResponse) cache.delete(event.request);
-          cache.put(event.request, responseClone);
+          if (
+            event.request.method === "GET" &&
+            !event.request.url.startsWith("chrome-extension") &&
+            !event.request.url.startsWith("https://www.google-analytics.com") &&
+            !event.request.url.startsWith("https://www.google.com.vn/ads") &&
+            !event.request.url.startsWith("https://www.googletagmanager.com")
+          ) {
+            cache.put(event.request, responseClone);
+          }
         }
         return response;
       } catch (error) {
@@ -108,7 +116,7 @@ self.addEventListener("fetch", event => {
         }
         throw error;
       }
-    })(window.caches),
+    })(caches),
   );
 });
 
@@ -138,4 +146,51 @@ self.addEventListener("periodicsync", (event: any) => {
       );
     }
   });
+});
+
+self.addEventListener("activate", event => {
+  const whiteList: string[] = ["response-cache-storage-v" + process.env.REACT_APP_VERSION];
+
+  // Clear caches while new version updated
+  event.waitUntil(
+    (async caches => {
+      self.clients.claim();
+      if (caches) {
+        const keys = await caches.keys();
+        return keys.map(async key => {
+          if (!whiteList.includes(key)) return caches.delete(key);
+          return true;
+        });
+      }
+
+      return [];
+    })(caches),
+  );
+});
+
+self.addEventListener("install", event => {
+  // Forces a service worker to activate immediately
+  self.skipWaiting();
+});
+
+self.addEventListener("notificationclick", function (event) {
+  // For root applications: just change "'./'" to "'/'"
+  // Very important having the last forward slash on "new URL('./', location)..."
+  const rootUrl = new URL("./", self.location.origin).href;
+  event.notification.close();
+  event.waitUntil(
+    self.clients.matchAll().then(matchedClients => {
+      for (let client of matchedClients) {
+        if (client.url.indexOf(rootUrl) >= 0) {
+          if ("focus" in client && typeof client.focus === "function") {
+            return client.focus();
+          }
+        }
+      }
+
+      return self.clients.openWindow(rootUrl).then(client => {
+        if (client) client.focus();
+      });
+    }),
+  );
 });

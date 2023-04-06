@@ -1,6 +1,6 @@
 {
   "name": "react-ts-pwa",
-  "version": "0.0.2.8",
+  "version": "0.0.2.9",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
@@ -61,7 +61,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "npx eslint --ext .tsx,.ts ./src",
-    "lint:fix": "npx prettier --loglevel silent --config ./.prettierrc -w . && npx eslint --fix --ext .tsx,.ts ./src"
+    "lint:fix": "npx prettier --loglevel silent --config ./.prettierrc -w ./src && npx eslint --fix --ext .tsx,.ts ./src",
+    "lint:version": "npx prettier --loglevel silent --config ./.prettierrc -w ./package.json -w ./public/manifest.json && npx eslint --fix --ext .tsx,.ts ./src"
   },
   "eslintConfig": {
     "extends": [
