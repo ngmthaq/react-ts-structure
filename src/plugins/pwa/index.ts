@@ -56,7 +56,7 @@ export const usePWA = () => {
   });
 
   useEffect(() => {
-    if (registration && pwa) {
+    if (registration && pwa && events.length > 0) {
       let event = events.find((e, i) => i === 0);
       if (event) {
         pwa.emit(event.eventName, event.data);
