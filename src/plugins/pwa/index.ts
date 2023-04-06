@@ -42,13 +42,19 @@ export const usePWA = () => {
 
   useEffect(() => {
     const onSWActive = async () => {
+      console.info("usePWA trigger", ServiceWorkerActiveEvent);
       const reg = await navigator.serviceWorker.ready;
       setPWA(new PWA(reg));
       setRegistration(reg);
     };
 
-    window.addEventListener(ServiceWorkerActiveEvent, onSWActive);
-    return window.removeEventListener(ServiceWorkerActiveEvent, onSWActive);
+    window.addEventListener(ServiceWorkerActiveEvent, async () => {
+      await onSWActive();
+    });
+
+    return window.removeEventListener(ServiceWorkerActiveEvent, async () => {
+      await onSWActive();
+    });
   });
 
   useEffect(() => {
