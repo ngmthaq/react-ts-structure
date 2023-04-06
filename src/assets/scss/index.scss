@@ -1,2 +1,10 @@
 @import "./variable";
 @import "./mixins";
+
+body {
+  overscroll-behavior-y: contain;
+}
+
+.unselectable {
+  user-select: none;
+}

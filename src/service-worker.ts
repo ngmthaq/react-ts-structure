@@ -87,7 +87,30 @@ self.addEventListener("message", event => {
 // Any other custom service worker logic can go here.
 const pwa = new PWA(self.registration);
 
-self.addEventListener("fetch", event => {});
+self.addEventListener("fetch", event => {
+  // Network first
+  event.respondWith(
+    (async caches => {
+      try {
+        const response = await fetch(event.request);
+        if (caches) {
+          const cachedResponse = await caches.match(event.request);
+          const responseClone = response.clone();
+          const cache = await caches.open("response-cache-storage-v" + process.env.REACT_APP_VERSION);
+          if (cachedResponse) cache.delete(event.request);
+          cache.put(event.request, responseClone);
+        }
+        return response;
+      } catch (error) {
+        if (caches) {
+          const cachedResponse = await caches.match(event.request);
+          if (cachedResponse) return cachedResponse;
+        }
+        throw error;
+      }
+    })(window.caches),
+  );
+});
 
 self.addEventListener("sync", (event: any) => {
   Object.entries(pwa.syncEvents).forEach(([tag, callback]) => {
