@@ -60,18 +60,36 @@ async function registerValidSW(serviceWorkerPath: string, config?: Config) {
 
     Object.entries(PWA.syncEvents).forEach(([event, callback]) => {
       window.addEventListener(event, async (e: any) => {
-        if ("sync" in registration) {
-          let sync: any = registration.sync;
-          let localForageData = await getLocalForage<Array<any>>("SYNC_" + event);
-          if (!localForageData) localForageData = [];
-          localForageData.push(e.details);
-          await setLocalForage("SYNC_" + event, localForageData);
-          sync.register("SYNC_" + event);
-        } else {
-          console.info("Background sync is not supported");
-          await callback.onNotSupported(registration, e.details);
+        try {
+          if ("sync" in registration) {
+            let sync: any = registration.sync;
+            let localForageData = await getLocalForage<Array<any>>("SYNC_" + event);
+            if (!localForageData) localForageData = [];
+            localForageData.push(e.details);
+            await setLocalForage("SYNC_" + event, localForageData);
+            sync.register("SYNC_" + event);
+          } else {
+            console.info("Background sync is not supported");
+            await callback.onNotSupported(registration, e.details);
+          }
+        } catch (error: any) {
+          console.info(error.message);
         }
       });
+    });
+
+    Object.entries(PWA.periodSyncEvents).forEach(async ([event, callback]) => {
+      try {
+        if ("periodicsync" in registration) {
+          let periodicsync: any = registration.periodicsync;
+          periodicsync.register("PERIOD_SYNC_" + event, { minInterval: callback.minInterval });
+        } else {
+          console.info("Background periodic sync is not supported");
+          await callback.onNotSupported(registration);
+        }
+      } catch (error: any) {
+        console.info(error.message);
+      }
     });
 
     registration.addEventListener("updatefound", () => {

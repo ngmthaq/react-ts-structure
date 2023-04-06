@@ -1,10 +1,12 @@
 import { events } from "./events";
 import { customEvents } from "./customEvents";
 import { syncEvents } from "./syncEvents";
+import { periodSyncEvents } from "./periodSyncEvents";
 
 export default class PWA {
   public static customEvents: PWACustomEvents = customEvents;
   public static syncEvents: PWASyncEvents = syncEvents;
+  public static periodSyncEvents: PWAPeriodSyncEvents = periodSyncEvents;
 
   public static emit<T>(event: string, data: T) {
     const customEvent = new CustomEvent<T>(event, { detail: data });
@@ -31,10 +33,11 @@ export type PWASyncEvents = {
   };
 };
 
-export type PWAPeriodSyncEvent = {
+export type PWAPeriodSyncEvents = {
   [k: string]: {
-    onSupported: (self: ServiceWorkerGlobalScope, syncEvent: any, data: any) => Promise<void>;
-    onNotSupported: (registration: ServiceWorkerRegistration, data: any) => Promise<void>;
+    minInterval: number;
+    onSupported: (self: ServiceWorkerGlobalScope, syncEvent: any) => Promise<void>;
+    onNotSupported: (registration: ServiceWorkerRegistration) => Promise<void>;
   };
 };
 

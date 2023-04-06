@@ -102,3 +102,15 @@ self.addEventListener("sync", (event: any) => {
     }
   });
 });
+
+self.addEventListener("periodicsync", (event: any) => {
+  Object.entries(PWA.periodSyncEvents).forEach(([tag, callback]) => {
+    if (event.tag === "PERIOD_SYNC_" + tag) {
+      event.waitUntil(
+        (async () => {
+          await callback.onSupported(self, event);
+        })(),
+      );
+    }
+  });
+});
