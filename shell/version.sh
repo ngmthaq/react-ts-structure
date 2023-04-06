@@ -1,4 +1,5 @@
 set -e
+
 node version.js $1
 
 if [ $1 ]
