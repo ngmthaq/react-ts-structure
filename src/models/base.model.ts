@@ -1,1 +1,3 @@
-export default abstract class BaseModel {}
+import { BaseModelInterface } from "types/models/base";
+
+export default abstract class BaseModel implements BaseModelInterface {}
