@@ -1,6 +1,6 @@
 {
   "name": "react-ts-pwa",
-  "version": "0.0.2.18",
+  "version": "0.0.2.19",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
