@@ -16,7 +16,7 @@ export function removeCookies(key: string, options: Cookies.CookieAttributes = {
   Cookies.remove(key, options);
 }
 
-export async function setLocalForage<T>(key: string, value: T, day: number = 0): Promise<void> {
+export async function setLocalForage<T>(key: string, value: T): Promise<void> {
   let data: any = value;
   if (typeof value === "boolean") data = value === true ? 1 : 0;
   localforage.setItem(key, data);

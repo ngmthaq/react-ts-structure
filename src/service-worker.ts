@@ -87,29 +87,50 @@ self.addEventListener("message", event => {
 // Any other custom service worker logic can go here.
 const pwa = new PWA(self.registration);
 
+const onCacheResponse = async (event: FetchEvent, caches: CacheStorage): Promise<Response> => {
+  const response = await fetch(event.request);
+  if (caches) {
+    const cachedResponse = await caches.match(event.request);
+    const responseClone = response.clone();
+    const cache = await caches.open("response-cache-storage-v" + process.env.REACT_APP_VERSION);
+    if (cachedResponse) cache.delete(event.request);
+    if (
+      event.request.method === "GET" &&
+      !event.request.url.startsWith("chrome-extension") &&
+      !event.request.url.startsWith("https://www.google-analytics.com") &&
+      !event.request.url.startsWith("https://www.google.com.vn/ads") &&
+      !event.request.url.startsWith("https://www.googletagmanager.com")
+    ) {
+      cache.put(event.request, responseClone);
+    }
+  }
+
+  return response;
+};
+
+const onUpdateApplication = async () => {
+  const lastUpdateTimeKey = "lastUpdateTimeKey";
+  const lastUpdateTime = await getLocalForage<number>(lastUpdateTimeKey);
+  if (Date.now() - (lastUpdateTime || 0) >= 1 * 60 * 1000) {
+    const versionResponse = await fetch("/version.json?t=" + Date.now());
+    const versionJson = await versionResponse.json();
+    const version = versionJson?.version || process.env.REACT_APP_VERSION;
+    await setLocalForage<number>(lastUpdateTimeKey, Date.now());
+    if (version !== process.env.REACT_APP_VERSION) {
+      self.registration.update();
+    }
+  }
+};
+
 self.addEventListener("fetch", event => {
   // Network first
   event.respondWith(
     (async caches => {
       try {
-        const response = await fetch(event.request);
-        if (caches) {
-          const cachedResponse = await caches.match(event.request);
-          const responseClone = response.clone();
-          const cache = await caches.open("response-cache-storage-v" + process.env.REACT_APP_VERSION);
-          if (cachedResponse) cache.delete(event.request);
-          if (
-            event.request.method === "GET" &&
-            !event.request.url.startsWith("chrome-extension") &&
-            !event.request.url.startsWith("https://www.google-analytics.com") &&
-            !event.request.url.startsWith("https://www.google.com.vn/ads") &&
-            !event.request.url.startsWith("https://www.googletagmanager.com")
-          ) {
-            cache.put(event.request, responseClone);
-          }
-        }
-        return response;
+        await onUpdateApplication();
+        return onCacheResponse(event, caches);
       } catch (error) {
+        await onUpdateApplication();
         if (caches) {
           const cachedResponse = await caches.match(event.request);
           if (cachedResponse) return cachedResponse;

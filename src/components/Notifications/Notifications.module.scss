@@ -9,7 +9,27 @@
   max-width: 30vw;
   z-index: $z-index-notifications;
 
+  @include downMd {
+    max-width: calc(100vw - 16px);
+  }
+
   & .alert {
     width: 100%;
+    margin-bottom: 4px;
+    border-radius: 0.375rem;
+    overflow: hidden;
+
+    & .alertHeader {
+      justify-content: space-between;
+
+      & .alertMessage {
+        flex: 9;
+      }
+
+      & button {
+        flex: 1;
+        margin-left: 0;
+      }
+    }
   }
 }

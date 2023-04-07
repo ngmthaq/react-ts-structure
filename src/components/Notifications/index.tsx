@@ -1,10 +1,12 @@
 import { FC, useState, useEffect } from "react";
-import { Alert } from "react-bootstrap";
-import { EVENT_REQUEST_NOTI_PERMISSION } from "const/events.const";
+import { Toast } from "react-bootstrap";
+import clsx from "clsx";
+import { EVENT_REQUEST_NOTI_PERMISSION, EVENT_UPDATE_FOUND } from "const/events.const";
 import { Notification } from "types/reducer/common";
 import { useAppSelector, usePWA } from "plugins/hooks";
+import EventBus from "plugins/bus";
 import { deepClone } from "helpers/common.helper";
-import styles from "./Notifications.module.scss";
+import classes from "./Notifications.module.scss";
 
 const Notifications: FC<{ autoClose: number }> = ({ autoClose }) => {
   const { dispatchPWAEvent } = usePWA();
@@ -12,8 +14,7 @@ const Notifications: FC<{ autoClose: number }> = ({ autoClose }) => {
   const notification = useAppSelector(state => state.common.notification);
 
   const [notifications, setNotifications] = useState<Notification[]>([]);
-
-  const onClick = (notification: Notification, index: number) => {};
+  const [isOpenUpdateNotification, setIsOpenUpdateNotification] = useState<boolean>(false);
 
   const onClose = (notification: Notification, index: number) => {
     let n = Object.assign({}, notification, { isOpen: false });
@@ -22,6 +23,10 @@ const Notifications: FC<{ autoClose: number }> = ({ autoClose }) => {
       newState[index] = n;
       return newState;
     });
+  };
+
+  const onClickNotification = () => {
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -49,21 +54,41 @@ const Notifications: FC<{ autoClose: number }> = ({ autoClose }) => {
     dispatchPWAEvent(EVENT_REQUEST_NOTI_PERMISSION);
   }, []);
 
+  useEffect(() => {
+    const onUpdateFound = () => setIsOpenUpdateNotification(true);
+    EventBus.on(EVENT_UPDATE_FOUND, onUpdateFound);
+    return () => EventBus.off(EVENT_UPDATE_FOUND, onUpdateFound);
+  });
+
   return (
-    <div className={styles.cont}>
+    <div className={classes.cont}>
       {notifications.map((n, i) => (
-        <Alert
+        <Toast
           key={i}
-          dismissible={true}
+          bg={n.variant}
           show={n.isOpen}
-          variant={n.variant}
-          onClick={() => onClick(n, i)}
           onClose={() => onClose(n, i)}
-          className={styles.alert}
+          className={clsx(classes.alert, "p-0")}
         >
-          {n.message}
-        </Alert>
+          <Toast.Header
+            closeButton={true}
+            closeVariant={n.variant === "dark" ? "white" : undefined}
+            className={clsx(`bg-${n.variant}`, `text-${n.textVariant}`, classes.alertHeader)}
+          >
+            <span className={classes.alertMessage}>{n.message}</span>
+          </Toast.Header>
+        </Toast>
       ))}
+      <Toast
+        bg="dark"
+        className={clsx(classes.alert, "p-0", "cursor-pointer")}
+        show={isOpenUpdateNotification}
+        onClick={onClickNotification}
+      >
+        <Toast.Header closeButton={false} className={clsx("text-light bg-dark", classes.alertHeader)}>
+          <span className={classes.alertMessage}>Detected new update version, click here to refresh</span>
+        </Toast.Header>
+      </Toast>
     </div>
   );
 };

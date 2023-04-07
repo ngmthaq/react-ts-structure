@@ -32,6 +32,7 @@ if (variant) {
   };
   fs.writeFileSync("./package.json", JSON.stringify(newPkg));
   fs.writeFileSync("./public/manifest.json", JSON.stringify(newManifest));
+  fs.writeFileSync("./public/version.json", JSON.stringify({ version: newVersion }), { flag: "w" });
 } else {
   console.log("\n> Please provide version variant: 'major', 'minor', 'build', 'revision'.");
 }

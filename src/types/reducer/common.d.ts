@@ -7,6 +7,7 @@ export type CommonState = {
 export type Notification = {
   message: string;
   variant: NotificationVariants;
+  textVariant: NotificationVariants;
   isOpen: boolean;
 };
 
