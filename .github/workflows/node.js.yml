@@ -27,4 +27,4 @@ jobs:
       - run: yarn
       - run: yarn lint
       - run: yarn test --passWithNoTests
-      - run: yarn build --if-present
+      - run: yarn build:linux --if-present
