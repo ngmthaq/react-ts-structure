@@ -15,8 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [16.x, 18.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -25,9 +24,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
-      - run: npm i
-      - run: npm run lint
-      - run: npm run test --passWithNoTest
-      - run: npm run build:linux --if-present
-      - run: npm run start
+      - run: yarn
+      - run: yarn lint
+      - run: yarn test --passWithNoTests
+      - run: yarn build --if-present
