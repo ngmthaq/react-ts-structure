@@ -29,5 +29,5 @@ jobs:
     - run: npm ci
     - run: npm run lint
     - run: npm run test --passWithNoTest
-    - run: npm run start
     - run: npm run build:linux --if-present
+    - run: npm run start
