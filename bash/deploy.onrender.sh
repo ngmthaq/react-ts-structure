@@ -1,6 +1,6 @@
 set -e
 
-current_date=`date`
+current_date=`date -u`
 
 # $1 : win | linux
 yarn build:$1
@@ -11,7 +11,7 @@ git init
 
 git add --all
 
-git commit -m "Auto deploy from bash ($current_date GMT+7)"
+git commit -m "Auto deploy from bash ($current_date UTC)"
 
 git branch -M main
 
