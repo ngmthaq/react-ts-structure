@@ -8,6 +8,7 @@ import i18next from "./plugins/locales";
 import PWA from "./plugins/pwa";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "./assets/scss/index.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);

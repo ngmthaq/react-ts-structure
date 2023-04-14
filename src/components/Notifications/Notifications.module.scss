@@ -33,3 +33,35 @@
     }
   }
 }
+
+.requestNotification {
+  position: fixed;
+  z-index: $z-index-notifications;
+  top: -1000px !important;
+  left: 50%;
+  transform: translate(-50%, 0);
+  transition: all linear 1s !important;
+
+  &.active {
+    top: 0px !important;
+  }
+
+  & .requestButton {
+    border: none;
+    padding: 4px 0;
+    border-radius: 2px;
+    transition: all ease-in-out 0.1s !important;
+
+    &:first-child {
+      margin-right: 8px;
+    }
+
+    &:hover {
+      background-color: rgba($color: $gray, $alpha: 0.2);
+    }
+
+    &:active {
+      background-color: rgba($color: $gray, $alpha: 0.4);
+    }
+  }
+}

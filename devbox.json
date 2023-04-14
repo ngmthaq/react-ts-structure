@@ -1,0 +1,20 @@
+{
+  "packages": ["nodejs-18_x", "yarn"],
+  "shell": {
+    "init_hook": ["yarn install"],
+    "scripts": {
+      "start": "react-scripts start",
+      "build:linux": "GENERATE_SOURCEMAP=false react-scripts build",
+      "build:win": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
+      "test": "react-scripts test",
+      "eject": "react-scripts eject",
+      "lint": "npx eslint --ext .tsx,.ts ./src",
+      "lint:fix": "npx prettier --loglevel silent --config ./.prettierrc -w ./src && npx eslint --fix --ext .tsx,.ts ./src",
+      "lint:version": "npx prettier --loglevel silent --config ./.prettierrc -w ./package.json -w ./public/manifest.json && npx eslint --fix --ext .tsx,.ts ./src"
+    }
+  },
+  "nixpkgs": {
+    "commit": "f80ac848e3d6f0c12c52758c0f25c10c97ca3b62"
+  }
+}
+

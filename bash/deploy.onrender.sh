@@ -2,7 +2,8 @@ set -e
 
 current_date=`date`
 
-yarn build:linux
+# $1 : win | linux
+yarn build:$1
 
 cd ./build
 

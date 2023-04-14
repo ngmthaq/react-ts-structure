@@ -1,5 +1,15 @@
 {
   "title": {
-    "Home": "Homepage"
+    "Home": "Trang chủ"
+  },
+  "text": {
+    "notification": "Thông báo",
+    "requestNotificationPermission": "Bật thông báo để nhận được các tin tức mới nhất từ chúng tôi",
+    "updateNewVersion": "Đã phát hiện bản cập nhật mới, nhấn vào đây để làm mới"
+  },
+  "button": {
+    "yes": "Đồng ý",
+    "no": "Từ chối"
   }
 }
+
