@@ -109,7 +109,7 @@ const onCacheResponse = async (event: FetchEvent, caches: CacheStorage): Promise
 };
 
 const onUpdateApplication = async () => {
-  const lastUpdateTimeKey = "lastUpdateTimeKey";
+  const lastUpdateTimeKey = "last-updated-time-key";
   const lastUpdateTime = await getLocalForage<number>(lastUpdateTimeKey);
   if (Date.now() - (lastUpdateTime || 0) >= 1 * 60 * 1000) {
     const versionResponse = await fetch("/version.json?t=" + Date.now());
