@@ -66,7 +66,7 @@ const Notifications: FC<{ autoClose: number }> = ({ autoClose }) => {
 
   useEffect(() => {
     getLocalForage<string>(KEY_NOTIFICATION_PERMISSION).then(permission => {
-      if (permission === null) {
+      if (permission === null || permission === "default") {
         setIsOpenRequestNotification(true);
       }
     });
