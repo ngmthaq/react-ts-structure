@@ -40,7 +40,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ### `sh version.sh [variant]`
 
-**Note: Available version variants: `main`, `stage`, `test`, `dev`.**
+**Note: Available version variants: 'major', 'minor', 'build', 'revision'.**
 
 Auto increase version of package.json and public/manifest.json.
 
